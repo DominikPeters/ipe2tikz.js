@@ -1,0 +1,85 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="text-anchors">
+    <color name="grid" value="0.88" />
+    <color name="bottom-ref" value="0.90 0.05 0.05" />
+    <color name="baseline-ref" value="0.05 0.35 0.85" />
+    <color name="tick" value="0.05 0.55 0.20" />
+    <pen name="gridpen" value="0.18" />
+    <pen name="refpen" value="0.8" />
+    <textsize name="large" value="24" />
+  </ipestyle>
+  <page title="Text anchor calibration">
+    <path stroke="grid" pen="gridpen">0 0 m 180 0 l</path>
+    <path stroke="grid" pen="gridpen">0 5 m 180 5 l</path>
+    <path stroke="grid" pen="gridpen">0 10 m 180 10 l</path>
+    <path stroke="grid" pen="gridpen">0 15 m 180 15 l</path>
+    <path stroke="grid" pen="gridpen">0 20 m 180 20 l</path>
+    <path stroke="grid" pen="gridpen">0 25 m 180 25 l</path>
+    <path stroke="grid" pen="gridpen">0 30 m 180 30 l</path>
+    <path stroke="grid" pen="gridpen">0 35 m 180 35 l</path>
+    <path stroke="grid" pen="gridpen">0 40 m 180 40 l</path>
+    <path stroke="grid" pen="gridpen">0 45 m 180 45 l</path>
+    <path stroke="grid" pen="gridpen">0 50 m 180 50 l</path>
+    <path stroke="grid" pen="gridpen">0 55 m 180 55 l</path>
+    <path stroke="grid" pen="gridpen">0 60 m 180 60 l</path>
+    <path stroke="grid" pen="gridpen">0 65 m 180 65 l</path>
+    <path stroke="grid" pen="gridpen">0 70 m 180 70 l</path>
+    <path stroke="grid" pen="gridpen">0 75 m 180 75 l</path>
+    <path stroke="grid" pen="gridpen">0 80 m 180 80 l</path>
+    <path stroke="grid" pen="gridpen">0 85 m 180 85 l</path>
+    <path stroke="grid" pen="gridpen">0 90 m 180 90 l</path>
+    <path stroke="grid" pen="gridpen">0 95 m 180 95 l</path>
+    <path stroke="grid" pen="gridpen">0 100 m 180 100 l</path>
+    <path stroke="grid" pen="gridpen">0 0 m 0 100 l</path>
+    <path stroke="grid" pen="gridpen">5 0 m 5 100 l</path>
+    <path stroke="grid" pen="gridpen">10 0 m 10 100 l</path>
+    <path stroke="grid" pen="gridpen">15 0 m 15 100 l</path>
+    <path stroke="grid" pen="gridpen">20 0 m 20 100 l</path>
+    <path stroke="grid" pen="gridpen">25 0 m 25 100 l</path>
+    <path stroke="grid" pen="gridpen">30 0 m 30 100 l</path>
+    <path stroke="grid" pen="gridpen">35 0 m 35 100 l</path>
+    <path stroke="grid" pen="gridpen">40 0 m 40 100 l</path>
+    <path stroke="grid" pen="gridpen">45 0 m 45 100 l</path>
+    <path stroke="grid" pen="gridpen">50 0 m 50 100 l</path>
+    <path stroke="grid" pen="gridpen">55 0 m 55 100 l</path>
+    <path stroke="grid" pen="gridpen">60 0 m 60 100 l</path>
+    <path stroke="grid" pen="gridpen">65 0 m 65 100 l</path>
+    <path stroke="grid" pen="gridpen">70 0 m 70 100 l</path>
+    <path stroke="grid" pen="gridpen">75 0 m 75 100 l</path>
+    <path stroke="grid" pen="gridpen">80 0 m 80 100 l</path>
+    <path stroke="grid" pen="gridpen">85 0 m 85 100 l</path>
+    <path stroke="grid" pen="gridpen">90 0 m 90 100 l</path>
+    <path stroke="grid" pen="gridpen">95 0 m 95 100 l</path>
+    <path stroke="grid" pen="gridpen">100 0 m 100 100 l</path>
+    <path stroke="grid" pen="gridpen">105 0 m 105 100 l</path>
+    <path stroke="grid" pen="gridpen">110 0 m 110 100 l</path>
+    <path stroke="grid" pen="gridpen">115 0 m 115 100 l</path>
+    <path stroke="grid" pen="gridpen">120 0 m 120 100 l</path>
+    <path stroke="grid" pen="gridpen">125 0 m 125 100 l</path>
+    <path stroke="grid" pen="gridpen">130 0 m 130 100 l</path>
+    <path stroke="grid" pen="gridpen">135 0 m 135 100 l</path>
+    <path stroke="grid" pen="gridpen">140 0 m 140 100 l</path>
+    <path stroke="grid" pen="gridpen">145 0 m 145 100 l</path>
+    <path stroke="grid" pen="gridpen">150 0 m 150 100 l</path>
+    <path stroke="grid" pen="gridpen">155 0 m 155 100 l</path>
+    <path stroke="grid" pen="gridpen">160 0 m 160 100 l</path>
+    <path stroke="grid" pen="gridpen">165 0 m 165 100 l</path>
+    <path stroke="grid" pen="gridpen">170 0 m 170 100 l</path>
+    <path stroke="grid" pen="gridpen">175 0 m 175 100 l</path>
+    <path stroke="grid" pen="gridpen">180 0 m 180 100 l</path>
+    <path stroke="bottom-ref" pen="refpen">10 70 m 170 70 l</path>
+    <path stroke="baseline-ref" pen="refpen">10 30 m 170 30 l</path>
+    <path stroke="tick" pen="refpen">35 58 m 35 82 l</path>
+    <path stroke="tick" pen="refpen">90 58 m 90 82 l</path>
+    <path stroke="tick" pen="refpen">145 58 m 145 82 l</path>
+    <path stroke="tick" pen="refpen">35 18 m 35 42 l</path>
+    <path stroke="tick" pen="refpen">90 18 m 90 42 l</path>
+    <path stroke="tick" pen="refpen">145 18 m 145 42 l</path>
+    <text pos="35 70" size="large" height="17" depth="5">g</text>
+    <text pos="90 70" size="large" halign="center" height="17" depth="5">g</text>
+    <text pos="145 70" size="large" halign="right" height="17" depth="5">g</text>
+    <text pos="35 30" size="large" valign="baseline" height="17" depth="5">g</text>
+    <text pos="90 30" size="large" valign="baseline" halign="center" height="17" depth="5">g</text>
+    <text pos="145 30" size="large" valign="baseline" halign="right" height="17" depth="5">g</text>
+  </page>
+</ipe>

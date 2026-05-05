@@ -1,0 +1,11 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <page title="first">
+    <path stroke="black">
+      0 0 m
+      10 0 l
+    </path>
+  </page>
+  <page title="second">
+    <text type="minipage" pos="0 0" width="48" valign="top" halign="left">Line one\\Line two</text>
+  </page>
+</ipe>

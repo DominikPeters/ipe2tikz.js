@@ -1,0 +1,11 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="text-style">
+    <textsize name="tinyish" value="\scriptsize" />
+    <textsize name="numeric" value="14" />
+    <textstyle name="bold" type="label" begin="\textbf{" end="}" />
+  </ipestyle>
+  <page>
+    <text pos="0 0" size="tinyish" style="bold">Styled</text>
+    <text pos="0 12" size="numeric">Numeric</text>
+  </page>
+</ipe>

@@ -1,0 +1,6 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <bitmap id="1" width="1" height="1">00</bitmap>
+  <page>
+    <image rect="0 0 10 20" bitmap="1" />
+  </page>
+</ipe>

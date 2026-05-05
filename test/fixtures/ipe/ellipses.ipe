@@ -1,0 +1,10 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <page>
+    <path stroke="black" fill="0.8">
+      10 0 0 5 20 30 e
+    </path>
+    <path stroke="black">
+      10 3 0 5 0 0 e
+    </path>
+  </page>
+</ipe>

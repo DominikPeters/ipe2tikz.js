@@ -1,0 +1,41 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="svm">
+    <color name="classA" value="0.10 0.37 0.65" />
+    <color name="classB" value="0.82 0.25 0.18" />
+    <color name="margin" value="0.25 0.25 0.25" />
+    <pen name="heavy" value="1" />
+  </ipestyle>
+  <page title="SVM margin sketch">
+    <path stroke="black" arrow="normal/normal">
+      0 0 m
+      130 0 l
+    </path>
+    <path stroke="black" arrow="normal/normal">
+      0 0 m
+      0 86 l
+    </path>
+    <path stroke="margin" pen="heavy">
+      22 8 m
+      102 78 l
+    </path>
+    <path stroke="margin" dash="[4 2] 0">
+      8 20 m
+      88 90 l
+    </path>
+    <path stroke="margin" dash="[4 2] 0">
+      36 -4 m
+      116 66 l
+    </path>
+    <path stroke="classA" fill="white" pen="heavy">3 0 0 3 24 58 e</path>
+    <path stroke="classA" fill="white" pen="heavy">3 0 0 3 38 68 e</path>
+    <path stroke="classA" fill="white" pen="heavy">3 0 0 3 52 54 e</path>
+    <path stroke="classB" fill="classB" pen="heavy">3 0 0 3 78 24 e</path>
+    <path stroke="classB" fill="classB" pen="heavy">3 0 0 3 94 34 e</path>
+    <path stroke="classB" fill="classB" pen="heavy">3 0 0 3 106 20 e</path>
+    <path stroke="classA" fill="classA" pen="heavy">4 0 0 4 55 61 e</path>
+    <path stroke="classB" fill="white" pen="heavy">4 0 0 4 74 31 e</path>
+    <text pos="86 74">$w^T\phi(x)+b=0$</text>
+    <text pos="106 8">$\phi_1$</text>
+    <text pos="6 80">$\phi_2$</text>
+  </page>
+</ipe>

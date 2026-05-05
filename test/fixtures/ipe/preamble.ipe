@@ -1,0 +1,7 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <preamble>\usepackage{amsmath}
+\newcommand{\vect}[1]{\mathbf{#1}}</preamble>
+  <page>
+    <text pos="0 0">$\vect{x}$</text>
+  </page>
+</ipe>

@@ -1,0 +1,15 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="dash-style">
+    <dashstyle name="dottedish" value="[1 2] 0" />
+  </ipestyle>
+  <page>
+    <path stroke="black" dash="dottedish">
+      0 0 m
+      20 0 l
+    </path>
+    <path stroke="black" dash="[3 1] 2">
+      0 10 m
+      20 10 l
+    </path>
+  </page>
+</ipe>

@@ -1,0 +1,10 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <page>
+    <group clip="0 0 m 10 0 l 10 10 l 0 10 l h">
+      <path stroke="black">
+        -5 5 m
+        15 5 l
+      </path>
+    </group>
+  </page>
+</ipe>

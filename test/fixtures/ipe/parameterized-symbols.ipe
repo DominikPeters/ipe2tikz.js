@@ -1,0 +1,18 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="parameterized-symbols">
+    <symbolsize name="big-mark" value="3" />
+    <symbol name="mark/square(sfp)">
+      <path stroke="sym-stroke" fill="sym-fill" pen="sym-pen">
+        -2 -2 m
+        2 -2 l
+        2 2 l
+        -2 2 l
+        h
+      </path>
+    </symbol>
+  </ipestyle>
+  <page>
+    <use name="mark/square(sfp)" pos="10 20" stroke="1 0 0" fill="0 1 0" pen="1.5" size="2" />
+    <use name="mark/square(sfp)" pos="30 20" stroke="black" fill="white" pen="0.5" size="big-mark" />
+  </page>
+</ipe>

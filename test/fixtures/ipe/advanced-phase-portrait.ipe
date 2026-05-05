@@ -1,0 +1,56 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="phase">
+    <color name="axis" value="0.15 0.17 0.20" />
+    <color name="flow" value="0.10 0.36 0.64" />
+    <color name="nullcline" value="0.75 0.12 0.18" />
+    <color name="equilibrium" value="0.05 0.05 0.05" />
+    <pen name="thin" value="0.45" />
+    <pen name="heavy" value="1.0" />
+    <opacity name="ghost" value="0.35" />
+  </ipestyle>
+  <page title="Planar dynamical system">
+    <layer name="field" />
+    <layer name="curves" />
+    <view layers="field curves" active="curves" name="full" />
+    <path layer="field" stroke="axis" pen="thin" arrow="normal/normal">
+      0 40 m
+      130 40 l
+    </path>
+    <path layer="field" stroke="axis" pen="thin" arrow="normal/normal">
+      65 0 m
+      65 82 l
+    </path>
+    <path layer="field" stroke="flow" pen="thin" arrow="normal/normal" opacity="ghost">
+      20 20 m
+      30 25 l
+    </path>
+    <path layer="field" stroke="flow" pen="thin" arrow="normal/normal" opacity="ghost">
+      28 58 m
+      40 52 l
+    </path>
+    <path layer="field" stroke="flow" pen="thin" arrow="normal/normal" opacity="ghost">
+      92 20 m
+      82 27 l
+    </path>
+    <path layer="field" stroke="flow" pen="thin" arrow="normal/normal" opacity="ghost">
+      104 60 m
+      92 54 l
+    </path>
+    <path layer="curves" stroke="nullcline" pen="heavy">
+      14 54 m
+      38 74 72 73 96 50 c
+      108 38 112 26 116 12 c
+    </path>
+    <path layer="curves" stroke="flow" pen="heavy">
+      18 18 m
+      35 14 42 26 52 39 c
+      70 62 90 68 112 62 c
+    </path>
+    <path layer="curves" stroke="equilibrium" fill="equilibrium">
+      2.5 0 0 2.5 65 40 e
+    </path>
+    <text layer="curves" pos="116 72">$\dot x=f(x,y)$</text>
+    <text layer="field" pos="126 32">$x$</text>
+    <text layer="field" pos="70 78">$y$</text>
+  </page>
+</ipe>

@@ -1,0 +1,15 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="opacity-style">
+    <opacity name="half" value="0.5" />
+    <opacity name="stroke-soft" value="0.25" />
+  </ipestyle>
+  <page>
+    <path stroke="black" fill="white" opacity="half" stroke-opacity="stroke-soft">
+      0 0 m
+      20 0 l
+      20 20 l
+      h
+    </path>
+    <text pos="0 30" opacity="half">Faded</text>
+  </page>
+</ipe>

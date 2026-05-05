@@ -1,0 +1,57 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="fidelity-arrows">
+    <color name="grid" value="0.82" />
+    <color name="axis" value="0.25" />
+    <color name="arrow" value="0.02 0.16 0.24" />
+    <pen name="gridpen" value="0.25" />
+    <pen name="axispen" value="0.6" />
+    <pen name="linepen" value="1" />
+    <arrowsize name="small" value="4" />
+    <arrowsize name="normal" value="7" />
+    <arrowsize name="large" value="12" />
+  </ipestyle>
+  <page title="Arrow fidelity grid">
+    <path stroke="grid" pen="gridpen">0 0 m 180 0 l</path>
+    <path stroke="grid" pen="gridpen">0 10 m 180 10 l</path>
+    <path stroke="grid" pen="gridpen">0 20 m 180 20 l</path>
+    <path stroke="grid" pen="gridpen">0 30 m 180 30 l</path>
+    <path stroke="grid" pen="gridpen">0 40 m 180 40 l</path>
+    <path stroke="grid" pen="gridpen">0 50 m 180 50 l</path>
+    <path stroke="grid" pen="gridpen">0 60 m 180 60 l</path>
+    <path stroke="grid" pen="gridpen">0 70 m 180 70 l</path>
+    <path stroke="grid" pen="gridpen">0 80 m 180 80 l</path>
+    <path stroke="grid" pen="gridpen">0 90 m 180 90 l</path>
+    <path stroke="grid" pen="gridpen">0 100 m 180 100 l</path>
+    <path stroke="grid" pen="gridpen">0 110 m 180 110 l</path>
+    <path stroke="grid" pen="gridpen">0 120 m 180 120 l</path>
+    <path stroke="grid" pen="gridpen">0 0 m 0 120 l</path>
+    <path stroke="grid" pen="gridpen">10 0 m 10 120 l</path>
+    <path stroke="grid" pen="gridpen">20 0 m 20 120 l</path>
+    <path stroke="grid" pen="gridpen">30 0 m 30 120 l</path>
+    <path stroke="grid" pen="gridpen">40 0 m 40 120 l</path>
+    <path stroke="grid" pen="gridpen">50 0 m 50 120 l</path>
+    <path stroke="grid" pen="gridpen">60 0 m 60 120 l</path>
+    <path stroke="grid" pen="gridpen">70 0 m 70 120 l</path>
+    <path stroke="grid" pen="gridpen">80 0 m 80 120 l</path>
+    <path stroke="grid" pen="gridpen">90 0 m 90 120 l</path>
+    <path stroke="grid" pen="gridpen">100 0 m 100 120 l</path>
+    <path stroke="grid" pen="gridpen">110 0 m 110 120 l</path>
+    <path stroke="grid" pen="gridpen">120 0 m 120 120 l</path>
+    <path stroke="grid" pen="gridpen">130 0 m 130 120 l</path>
+    <path stroke="grid" pen="gridpen">140 0 m 140 120 l</path>
+    <path stroke="grid" pen="gridpen">150 0 m 150 120 l</path>
+    <path stroke="grid" pen="gridpen">160 0 m 160 120 l</path>
+    <path stroke="grid" pen="gridpen">170 0 m 170 120 l</path>
+    <path stroke="grid" pen="gridpen">180 0 m 180 120 l</path>
+    <path stroke="axis" pen="axispen">20 0 m 20 120 l</path>
+    <path stroke="axis" pen="axispen">160 0 m 160 120 l</path>
+    <path stroke="arrow" pen="linepen" arrow="normal/small">20 95 m 160 95 l</path>
+    <path stroke="arrow" pen="linepen" arrow="normal/normal">20 70 m 160 70 l</path>
+    <path stroke="arrow" pen="linepen" arrow="normal/large">20 45 m 160 45 l</path>
+    <path stroke="arrow" pen="linepen" rarrow="normal/large" arrow="normal/small">20 20 m 160 20 l</path>
+    <text pos="24 100">small</text>
+    <text pos="24 75">normal</text>
+    <text pos="24 50">large</text>
+    <text pos="24 25">reverse large / forward small</text>
+  </page>
+</ipe>

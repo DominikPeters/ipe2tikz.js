@@ -1,8 +1,40 @@
-export interface IpeToTikzDiagnostic {
-  severity: "warning" | "error";
-  code: string;
-  message: string;
-}
+import { parseIpeXml } from "./parser.js";
+import { emitTikz } from "./tikz.js";
+
+export type {
+  IpeColor,
+  IpeDashStyle,
+  IpeDocument,
+  IpeGroupObject,
+  IpeGradient,
+  IpeGradientStop,
+  IpeImageObject,
+  IpeLayer,
+  IpeLineCap,
+  IpeLineJoin,
+  IpeMatrix,
+  IpeObject,
+  IpeOpacity,
+  IpePage,
+  IpePathCommand,
+  IpePathObject,
+  IpePathStyle,
+  IpePen,
+  IpePoint,
+  IpeStylesheet,
+  IpeTextSize,
+  IpeTextObject,
+  IpeTextStyle,
+  IpeTiling,
+  IpeToTikzDiagnostic,
+  IpeUnsupportedPathEffect,
+  IpeUseObject,
+  IpeView
+} from "./ir.js";
+
+export { parseIpeXml } from "./parser.js";
+
+import type { IpeToTikzDiagnostic } from "./ir.js";
 
 export interface IpeToTikzResult {
   tikz: string;
@@ -14,15 +46,19 @@ export interface ConvertIpeToTikzOptions {
   view?: number;
 }
 
-export function convertIpeToTikz(_source: string, _options: ConvertIpeToTikzOptions = {}): IpeToTikzResult {
+export function convertIpeToTikz(source: string, options: ConvertIpeToTikzOptions = {}): IpeToTikzResult {
+  const parseResult = parseIpeXml(source);
+  const diagnostics = [...parseResult.diagnostics];
+
+  if (!parseResult.document || diagnostics.some((diagnostic) => diagnostic.severity === "error")) {
+    return {
+      tikz: "",
+      diagnostics
+    };
+  }
+
   return {
-    tikz: "\\begin{tikzpicture}\n\\end{tikzpicture}\n",
-    diagnostics: [
-      {
-        severity: "warning",
-        code: "not-implemented",
-        message: "Ipe XML conversion is not implemented yet."
-      }
-    ]
+    tikz: emitTikz(parseResult.document, options.page ?? 0, options.view, diagnostics),
+    diagnostics
   };
 }

@@ -1,0 +1,60 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="control">
+    <color name="block" value="0.90 0.96 0.94" />
+    <color name="sum" value="1 0.95 0.82" />
+    <color name="signal" value="0.08 0.18 0.25" />
+    <pen name="wire" value="0.8" />
+    <textsize name="small" value="\scriptsize" />
+  </ipestyle>
+  <page title="Feedback controller">
+    <group matrix="1 0 0 1 8 12">
+      <path stroke="signal" fill="sum" pen="wire">
+        8 0 0 8 20 35 e
+      </path>
+      <path stroke="signal" fill="block" pen="wire">
+        42 25 m
+        82 25 l
+        82 45 l
+        42 45 l
+        42 25 l
+        h
+      </path>
+      <path stroke="signal" fill="block" pen="wire">
+        104 25 m
+        150 25 l
+        150 45 l
+        104 45 l
+        104 25 l
+        h
+      </path>
+      <path stroke="signal" pen="wire" arrow="normal/normal">
+        0 35 m
+        12 35 l
+      </path>
+      <path stroke="signal" pen="wire" arrow="normal/normal">
+        28 35 m
+        42 35 l
+      </path>
+      <path stroke="signal" pen="wire" arrow="normal/normal">
+        82 35 m
+        104 35 l
+      </path>
+      <path stroke="signal" pen="wire" arrow="normal/normal">
+        150 35 m
+        172 35 l
+      </path>
+      <path stroke="signal" dash="[3 2] 0" arrow="normal/normal">
+        160 35 m
+        160 5 l
+        20 5 l
+        20 27 l
+      </path>
+      <text pos="20 35" halign="center" valign="center">$+$</text>
+      <text pos="62 35" halign="center" valign="center">$K(s)$</text>
+      <text pos="127 35" halign="center" valign="center">$G(s)$</text>
+      <text pos="2 42" size="small">$r$</text>
+      <text pos="170 42" size="small">$y$</text>
+      <text pos="86 11" size="small" halign="center">$H(s)$ feedback</text>
+    </group>
+  </page>
+</ipe>

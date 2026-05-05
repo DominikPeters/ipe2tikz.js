@@ -1,0 +1,13 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="symbols">
+    <symbol name="mark/disk">
+      <path stroke="black" fill="black">
+        2 0 0 2 0 0 e
+      </path>
+    </symbol>
+  </ipestyle>
+  <page>
+    <use name="mark/disk" pos="10 20" />
+    <use name="missing-symbol" pos="0 0" />
+  </page>
+</ipe>

@@ -1,0 +1,45 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="paper">
+    <color name="latent" value="0.82 0.90 1" />
+    <color name="observed" value="1 0.92 0.72" />
+    <color name="edge" value="0.10 0.18 0.24" />
+    <pen name="thick" value="0.9" />
+    <opacity name="soft" value="0.35" />
+    <textsize name="small" value="\scriptsize" />
+  </ipestyle>
+  <page title="Bayesian network">
+    <path stroke="edge" fill="latent" pen="thick">
+      18 0 0 12 30 70 e
+    </path>
+    <path stroke="edge" fill="latent" pen="thick">
+      18 0 0 12 90 70 e
+    </path>
+    <path stroke="edge" fill="observed" pen="thick">
+      18 0 0 12 60 30 e
+    </path>
+    <path stroke="edge" fill="observed" pen="thick">
+      18 0 0 12 120 30 e
+    </path>
+    <path stroke="edge" pen="thick" arrow="normal/normal">
+      44 64 m
+      50 52 l
+    </path>
+    <path stroke="edge" pen="thick" arrow="normal/normal">
+      82 64 m
+      70 52 l
+    </path>
+    <path stroke="edge" pen="thick" arrow="normal/normal">
+      78 30 m
+      102 30 l
+    </path>
+    <path stroke="edge" dash="[3 2] 0" opacity="soft">
+      30 58 m
+      120 30 l
+    </path>
+    <text pos="30 70" halign="center" valign="center">$Z_1$</text>
+    <text pos="90 70" halign="center" valign="center">$Z_2$</text>
+    <text pos="60 30" halign="center" valign="center">$X$</text>
+    <text pos="120 30" halign="center" valign="center">$Y$</text>
+    <text pos="72 8" size="small" halign="center">A small Bayesian network for $p(y,x,z)$</text>
+  </page>
+</ipe>

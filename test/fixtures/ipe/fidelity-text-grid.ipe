@@ -1,0 +1,110 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="fidelity-text">
+    <color name="minor-grid" value="0.90" />
+    <color name="major-grid" value="0.76" />
+    <color name="axis" value="0.22" />
+    <color name="ref" value="0.86 0.08 0.08" />
+    <pen name="minor" value="0.18" />
+    <pen name="major" value="0.32" />
+    <pen name="axispen" value="0.65" />
+    <pen name="refpen" value="0.85" />
+    <textsize name="large" value="18" />
+  </ipestyle>
+  <page title="Text fidelity grid">
+    <path stroke="minor-grid" pen="minor">0 0 m 180 0 l</path>
+    <path stroke="minor-grid" pen="minor">0 5 m 180 5 l</path>
+    <path stroke="major-grid" pen="major">0 10 m 180 10 l</path>
+    <path stroke="minor-grid" pen="minor">0 15 m 180 15 l</path>
+    <path stroke="major-grid" pen="major">0 20 m 180 20 l</path>
+    <path stroke="minor-grid" pen="minor">0 25 m 180 25 l</path>
+    <path stroke="major-grid" pen="major">0 30 m 180 30 l</path>
+    <path stroke="minor-grid" pen="minor">0 35 m 180 35 l</path>
+    <path stroke="major-grid" pen="major">0 40 m 180 40 l</path>
+    <path stroke="minor-grid" pen="minor">0 45 m 180 45 l</path>
+    <path stroke="major-grid" pen="major">0 50 m 180 50 l</path>
+    <path stroke="minor-grid" pen="minor">0 55 m 180 55 l</path>
+    <path stroke="major-grid" pen="major">0 60 m 180 60 l</path>
+    <path stroke="minor-grid" pen="minor">0 65 m 180 65 l</path>
+    <path stroke="major-grid" pen="major">0 70 m 180 70 l</path>
+    <path stroke="minor-grid" pen="minor">0 75 m 180 75 l</path>
+    <path stroke="major-grid" pen="major">0 80 m 180 80 l</path>
+    <path stroke="minor-grid" pen="minor">0 85 m 180 85 l</path>
+    <path stroke="major-grid" pen="major">0 90 m 180 90 l</path>
+    <path stroke="minor-grid" pen="minor">0 95 m 180 95 l</path>
+    <path stroke="major-grid" pen="major">0 100 m 180 100 l</path>
+    <path stroke="minor-grid" pen="minor">0 105 m 180 105 l</path>
+    <path stroke="major-grid" pen="major">0 110 m 180 110 l</path>
+    <path stroke="minor-grid" pen="minor">0 115 m 180 115 l</path>
+    <path stroke="major-grid" pen="major">0 120 m 180 120 l</path>
+    <path stroke="minor-grid" pen="minor">0 125 m 180 125 l</path>
+    <path stroke="major-grid" pen="major">0 130 m 180 130 l</path>
+    <path stroke="minor-grid" pen="minor">0 135 m 180 135 l</path>
+    <path stroke="major-grid" pen="major">0 140 m 180 140 l</path>
+    <path stroke="minor-grid" pen="minor">0 0 m 0 140 l</path>
+    <path stroke="minor-grid" pen="minor">5 0 m 5 140 l</path>
+    <path stroke="major-grid" pen="major">10 0 m 10 140 l</path>
+    <path stroke="minor-grid" pen="minor">15 0 m 15 140 l</path>
+    <path stroke="major-grid" pen="major">20 0 m 20 140 l</path>
+    <path stroke="minor-grid" pen="minor">25 0 m 25 140 l</path>
+    <path stroke="major-grid" pen="major">30 0 m 30 140 l</path>
+    <path stroke="minor-grid" pen="minor">35 0 m 35 140 l</path>
+    <path stroke="major-grid" pen="major">40 0 m 40 140 l</path>
+    <path stroke="minor-grid" pen="minor">45 0 m 45 140 l</path>
+    <path stroke="major-grid" pen="major">50 0 m 50 140 l</path>
+    <path stroke="minor-grid" pen="minor">55 0 m 55 140 l</path>
+    <path stroke="major-grid" pen="major">60 0 m 60 140 l</path>
+    <path stroke="minor-grid" pen="minor">65 0 m 65 140 l</path>
+    <path stroke="major-grid" pen="major">70 0 m 70 140 l</path>
+    <path stroke="minor-grid" pen="minor">75 0 m 75 140 l</path>
+    <path stroke="major-grid" pen="major">80 0 m 80 140 l</path>
+    <path stroke="minor-grid" pen="minor">85 0 m 85 140 l</path>
+    <path stroke="major-grid" pen="major">90 0 m 90 140 l</path>
+    <path stroke="minor-grid" pen="minor">95 0 m 95 140 l</path>
+    <path stroke="major-grid" pen="major">100 0 m 100 140 l</path>
+    <path stroke="minor-grid" pen="minor">105 0 m 105 140 l</path>
+    <path stroke="major-grid" pen="major">110 0 m 110 140 l</path>
+    <path stroke="minor-grid" pen="minor">115 0 m 115 140 l</path>
+    <path stroke="major-grid" pen="major">120 0 m 120 140 l</path>
+    <path stroke="minor-grid" pen="minor">125 0 m 125 140 l</path>
+    <path stroke="major-grid" pen="major">130 0 m 130 140 l</path>
+    <path stroke="minor-grid" pen="minor">135 0 m 135 140 l</path>
+    <path stroke="major-grid" pen="major">140 0 m 140 140 l</path>
+    <path stroke="minor-grid" pen="minor">145 0 m 145 140 l</path>
+    <path stroke="major-grid" pen="major">150 0 m 150 140 l</path>
+    <path stroke="minor-grid" pen="minor">155 0 m 155 140 l</path>
+    <path stroke="major-grid" pen="major">160 0 m 160 140 l</path>
+    <path stroke="minor-grid" pen="minor">165 0 m 165 140 l</path>
+    <path stroke="major-grid" pen="major">170 0 m 170 140 l</path>
+    <path stroke="minor-grid" pen="minor">175 0 m 175 140 l</path>
+    <path stroke="major-grid" pen="major">180 0 m 180 140 l</path>
+    <path stroke="axis" pen="axispen">0 70 m 180 70 l</path>
+    <path stroke="axis" pen="axispen">90 0 m 90 140 l</path>
+    <path stroke="ref" pen="refpen">10 70 m 170 70 l</path>
+    <path stroke="ref" pen="refpen">20 60 m 20 80 l</path>
+    <path stroke="ref" pen="refpen">65 60 m 65 80 l</path>
+    <path stroke="ref" pen="refpen">115 60 m 115 80 l</path>
+    <path stroke="ref" pen="refpen">160 60 m 160 80 l</path>
+    <path stroke="ref" pen="refpen">10 110 m 170 110 l</path>
+    <path stroke="ref" pen="refpen">35 100 m 35 120 l</path>
+    <path stroke="ref" pen="refpen">90 100 m 90 120 l</path>
+    <path stroke="ref" pen="refpen">145 100 m 145 120 l</path>
+    <path stroke="ref" pen="refpen">10 35 m 170 35 l</path>
+    <path stroke="ref" pen="refpen">35 25 m 35 45 l</path>
+    <path stroke="ref" pen="refpen">90 25 m 90 45 l</path>
+    <path stroke="ref" pen="refpen">145 25 m 145 45 l</path>
+    <text pos="35 110" size="large" height="13" depth="4">left</text>
+    <text pos="90 110" size="large" halign="center" height="13" depth="4">centered</text>
+    <text pos="145 110" size="large" halign="right" height="13" depth="4">right</text>
+    <text pos="20 70" size="large" height="13" depth="4">bottom</text>
+    <text pos="65 70" size="large" valign="baseline" height="13" depth="4">base</text>
+    <text pos="115 70" size="large" valign="center" halign="center" height="13" depth="4">center</text>
+    <text pos="160 70" size="large" valign="top" halign="right" height="13" depth="4">top</text>
+    <text pos="35 35" size="large" height="13" depth="4">gyp</text>
+    <text pos="90 35" size="large" halign="center" height="18" depth="6">$\int_0^1 f(x)\,dx$</text>
+    <text pos="145 35" size="large" halign="right" height="13" depth="4">$x_i^2+y_j^2$</text>
+    <path stroke="ref" pen="refpen">155 10 m 170 10 l</path>
+    <path stroke="ref" pen="refpen">160 5 m 160 20 l</path>
+    <text pos="160 10" size="large" matrix="0.866 0.5 -0.5 0.866 0 0" height="13" depth="4">rot</text>
+    <text pos="20 8" width="130" height="10" depth="3" type="minipage">minipage baseline check</text>
+  </page>
+</ipe>

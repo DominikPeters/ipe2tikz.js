@@ -1,0 +1,25 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="types">
+    <color name="node" value="0.93 0.94 1" />
+    <color name="edge" value="0.12 0.14 0.18" />
+    <pen name="edgepen" value="0.65" />
+    <textsize name="small" value="\scriptsize" />
+  </ipestyle>
+  <page title="Abstract interpretation lattice">
+    <path stroke="edge" pen="edgepen">70 86 m 32 58 l 70 58 l 108 58 l 70 30 l 70 8 l</path>
+    <path stroke="edge" pen="edgepen">32 58 m 70 30 l 108 58 l</path>
+    <path stroke="edge" dash="[2 2] 0">32 58 m 108 58 l</path>
+    <path stroke="edge" fill="node">54 78 m 86 78 l 86 94 l 54 94 l h</path>
+    <path stroke="edge" fill="node">14 50 m 50 50 l 50 66 l 14 66 l h</path>
+    <path stroke="edge" fill="node">54 50 m 86 50 l 86 66 l 54 66 l h</path>
+    <path stroke="edge" fill="node">90 50 m 126 50 l 126 66 l 90 66 l h</path>
+    <path stroke="edge" fill="node">54 22 m 86 22 l 86 38 l 54 38 l h</path>
+    <path stroke="edge" fill="node">54 0 m 86 0 l 86 16 l 54 16 l h</path>
+    <text pos="70 86" halign="center" valign="center">$\top$</text>
+    <text pos="32 58" halign="center" valign="center" size="small">Sign</text>
+    <text pos="70 58" halign="center" valign="center" size="small">Parity</text>
+    <text pos="108 58" halign="center" valign="center" size="small">Range</text>
+    <text pos="70 30" halign="center" valign="center">$\bot?$</text>
+    <text pos="70 8" halign="center" valign="center">$\bot$</text>
+  </page>
+</ipe>

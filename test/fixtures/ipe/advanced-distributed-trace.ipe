@@ -1,0 +1,41 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="trace">
+    <color name="proc" value="0.18 0.20 0.24" />
+    <color name="send" value="0.12 0.37 0.58" />
+    <color name="recv" value="0.70 0.20 0.20" />
+    <pen name="line" value="0.7" />
+    <textsize name="small" value="\scriptsize" />
+  </ipestyle>
+  <page title="Distributed execution trace">
+    <layer name="base" />
+    <layer name="messages" />
+    <view layers="base messages" active="messages" name="trace" />
+    <path layer="base" stroke="proc" pen="line">
+      20 70 m 130 70 l
+    </path>
+    <path layer="base" stroke="proc" pen="line">
+      20 40 m 130 40 l
+    </path>
+    <path layer="base" stroke="proc" pen="line">
+      20 10 m 130 10 l
+    </path>
+    <path layer="messages" stroke="send" arrow="normal/normal">
+      42 70 m 72 40 l
+    </path>
+    <path layer="messages" stroke="send" arrow="normal/normal">
+      78 40 m 112 10 l
+    </path>
+    <path layer="messages" stroke="recv" dash="[3 2] 0" arrow="normal/normal">
+      116 10 m 98 70 l
+    </path>
+    <path layer="messages" stroke="proc" fill="white">2.5 0 0 2.5 42 70 e</path>
+    <path layer="messages" stroke="proc" fill="white">2.5 0 0 2.5 72 40 e</path>
+    <path layer="messages" stroke="proc" fill="white">2.5 0 0 2.5 112 10 e</path>
+    <text layer="base" pos="0 70" valign="center" size="small">$P_1$</text>
+    <text layer="base" pos="0 40" valign="center" size="small">$P_2$</text>
+    <text layer="base" pos="0 10" valign="center" size="small">$P_3$</text>
+    <text layer="messages" pos="50 55" size="small">$m_1$</text>
+    <text layer="messages" pos="90 24" size="small">$m_2$</text>
+    <text layer="messages" pos="106 50" size="small">ack</text>
+  </page>
+</ipe>

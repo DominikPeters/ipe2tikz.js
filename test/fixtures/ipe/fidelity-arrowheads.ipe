@@ -1,0 +1,110 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="fidelity-arrowheads">
+    <color name="grid" value="0.84" />
+    <color name="major" value="0.68" />
+    <color name="ref" value="0.9 0.05 0.05" />
+    <color name="arrow" value="0.02 0.16 0.24" />
+    <pen name="gridpen" value="0.18" />
+    <pen name="majorpen" value="0.32" />
+    <pen name="refpen" value="0.7" />
+    <pen name="thin" value="0.4" />
+    <pen name="normalpen" value="1" />
+    <pen name="thick" value="2" />
+    <arrowsize name="small" value="8" />
+    <arrowsize name="normal" value="14" />
+    <arrowsize name="large" value="22" />
+    <symbol name="arrow/pointed(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="sym-stroke">
+        0 0 m -1.0 0.333 l -0.8 0 l -1.0 -0.333 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/fnormal(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="white">
+        0 0 m -1.0 0.333 l -1.0 -0.333 l h
+      </path>
+    </symbol>
+  </ipestyle>
+  <page title="Arrowhead fidelity">
+    <path stroke="grid" pen="gridpen">0 0 m 180 0 l</path>
+    <path stroke="grid" pen="gridpen">0 5 m 180 5 l</path>
+    <path stroke="major" pen="majorpen">0 10 m 180 10 l</path>
+    <path stroke="grid" pen="gridpen">0 15 m 180 15 l</path>
+    <path stroke="major" pen="majorpen">0 20 m 180 20 l</path>
+    <path stroke="grid" pen="gridpen">0 25 m 180 25 l</path>
+    <path stroke="major" pen="majorpen">0 30 m 180 30 l</path>
+    <path stroke="grid" pen="gridpen">0 35 m 180 35 l</path>
+    <path stroke="major" pen="majorpen">0 40 m 180 40 l</path>
+    <path stroke="grid" pen="gridpen">0 45 m 180 45 l</path>
+    <path stroke="major" pen="majorpen">0 50 m 180 50 l</path>
+    <path stroke="grid" pen="gridpen">0 55 m 180 55 l</path>
+    <path stroke="major" pen="majorpen">0 60 m 180 60 l</path>
+    <path stroke="grid" pen="gridpen">0 65 m 180 65 l</path>
+    <path stroke="major" pen="majorpen">0 70 m 180 70 l</path>
+    <path stroke="grid" pen="gridpen">0 75 m 180 75 l</path>
+    <path stroke="major" pen="majorpen">0 80 m 180 80 l</path>
+    <path stroke="grid" pen="gridpen">0 85 m 180 85 l</path>
+    <path stroke="major" pen="majorpen">0 90 m 180 90 l</path>
+    <path stroke="grid" pen="gridpen">0 95 m 180 95 l</path>
+    <path stroke="major" pen="majorpen">0 100 m 180 100 l</path>
+    <path stroke="grid" pen="gridpen">0 105 m 180 105 l</path>
+    <path stroke="major" pen="majorpen">0 110 m 180 110 l</path>
+    <path stroke="grid" pen="gridpen">0 115 m 180 115 l</path>
+    <path stroke="major" pen="majorpen">0 120 m 180 120 l</path>
+    <path stroke="grid" pen="gridpen">0 125 m 180 125 l</path>
+    <path stroke="major" pen="majorpen">0 130 m 180 130 l</path>
+    <path stroke="grid" pen="gridpen">0 135 m 180 135 l</path>
+    <path stroke="major" pen="majorpen">0 140 m 180 140 l</path>
+    <path stroke="grid" pen="gridpen">0 0 m 0 140 l</path>
+    <path stroke="grid" pen="gridpen">5 0 m 5 140 l</path>
+    <path stroke="major" pen="majorpen">10 0 m 10 140 l</path>
+    <path stroke="grid" pen="gridpen">15 0 m 15 140 l</path>
+    <path stroke="major" pen="majorpen">20 0 m 20 140 l</path>
+    <path stroke="grid" pen="gridpen">25 0 m 25 140 l</path>
+    <path stroke="major" pen="majorpen">30 0 m 30 140 l</path>
+    <path stroke="grid" pen="gridpen">35 0 m 35 140 l</path>
+    <path stroke="major" pen="majorpen">40 0 m 40 140 l</path>
+    <path stroke="grid" pen="gridpen">45 0 m 45 140 l</path>
+    <path stroke="major" pen="majorpen">50 0 m 50 140 l</path>
+    <path stroke="grid" pen="gridpen">55 0 m 55 140 l</path>
+    <path stroke="major" pen="majorpen">60 0 m 60 140 l</path>
+    <path stroke="grid" pen="gridpen">65 0 m 65 140 l</path>
+    <path stroke="major" pen="majorpen">70 0 m 70 140 l</path>
+    <path stroke="grid" pen="gridpen">75 0 m 75 140 l</path>
+    <path stroke="major" pen="majorpen">80 0 m 80 140 l</path>
+    <path stroke="grid" pen="gridpen">85 0 m 85 140 l</path>
+    <path stroke="major" pen="majorpen">90 0 m 90 140 l</path>
+    <path stroke="grid" pen="gridpen">95 0 m 95 140 l</path>
+    <path stroke="major" pen="majorpen">100 0 m 100 140 l</path>
+    <path stroke="grid" pen="gridpen">105 0 m 105 140 l</path>
+    <path stroke="major" pen="majorpen">110 0 m 110 140 l</path>
+    <path stroke="grid" pen="gridpen">115 0 m 115 140 l</path>
+    <path stroke="major" pen="majorpen">120 0 m 120 140 l</path>
+    <path stroke="grid" pen="gridpen">125 0 m 125 140 l</path>
+    <path stroke="major" pen="majorpen">130 0 m 130 140 l</path>
+    <path stroke="grid" pen="gridpen">135 0 m 135 140 l</path>
+    <path stroke="major" pen="majorpen">140 0 m 140 140 l</path>
+    <path stroke="grid" pen="gridpen">145 0 m 145 140 l</path>
+    <path stroke="major" pen="majorpen">150 0 m 150 140 l</path>
+    <path stroke="grid" pen="gridpen">155 0 m 155 140 l</path>
+    <path stroke="major" pen="majorpen">160 0 m 160 140 l</path>
+    <path stroke="grid" pen="gridpen">165 0 m 165 140 l</path>
+    <path stroke="major" pen="majorpen">170 0 m 170 140 l</path>
+    <path stroke="grid" pen="gridpen">175 0 m 175 140 l</path>
+    <path stroke="major" pen="majorpen">180 0 m 180 140 l</path>
+
+    <path stroke="ref" pen="refpen">160 105 m 160 135 l</path>
+    <path stroke="ref" pen="refpen">20 70 m 20 100 l</path>
+    <path stroke="ref" pen="refpen">150 60 m 170 80 l</path>
+    <path stroke="ref" pen="refpen">160 15 m 160 45 l</path>
+
+    <path stroke="arrow" pen="thin" arrow="normal/small">30 125 m 160 125 l</path>
+    <path stroke="arrow" pen="normalpen" arrow="normal/normal">30 110 m 160 110 l</path>
+    <path stroke="arrow" pen="thick" arrow="normal/large">30 90 m 160 90 l</path>
+    <path stroke="arrow" pen="normalpen" rarrow="normal/large">20 80 m 145 80 l</path>
+    <path stroke="arrow" pen="normalpen" arrow="normal/large">50 35 m 160 35 l</path>
+    <path stroke="arrow" pen="normalpen" arrow="normal/large">80 35 m 160 75 l</path>
+    <path stroke="arrow" pen="normalpen" arrow="normal/large">40 20 m 85 65 120 20 160 35 c</path>
+    <path stroke="arrow" pen="normalpen" arrow="pointed/large">35 12 m 85 12 l</path>
+    <path stroke="arrow" pen="normalpen" arrow="fnormal/normal">105 12 m 155 12 l</path>
+  </page>
+</ipe>

@@ -1,0 +1,8 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <page>
+    <path stroke="black" arrow="normal/normal">
+      30 0 m
+      30 0 0 30 0 0 0 30 a
+    </path>
+  </page>
+</ipe>

@@ -1,0 +1,43 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="robot">
+    <color name="obstacle" value="0.92 0.88 0.84" />
+    <color name="route" value="0.10 0.42 0.58" />
+    <color name="sensor" value="1 0.95 0.70" />
+    <pen name="routepen" value="1.1" />
+    <opacity name="cone" value="0.38" />
+  </ipestyle>
+  <page title="Robot trajectory and sensing cone">
+    <group clip="0 0 m 130 0 l 130 80 l 0 80 l h">
+      <path stroke="obstacle" fill="obstacle">
+        42 20 m
+        66 20 l
+        66 42 l
+        42 42 l
+        h
+      </path>
+      <path stroke="obstacle" fill="obstacle">
+        92 48 m
+        116 48 l
+        116 70 l
+        92 70 l
+        h
+      </path>
+      <path stroke="sensor" fill="sensor" opacity="cone">
+        20 14 m
+        86 0 l
+        72 48 l
+        h
+      </path>
+      <path stroke="route" pen="routepen" arrow="normal/normal">
+        12 12 m
+        34 30 52 5 76 24 c
+        96 40 94 76 122 68 c
+      </path>
+      <path stroke="route" fill="white" pen="routepen">3 0 0 3 12 12 e</path>
+      <path stroke="route" fill="route" pen="routepen">3 0 0 3 122 68 e</path>
+    </group>
+    <text pos="18 6">$q_0$</text>
+    <text pos="104 72">$q_T$</text>
+    <text pos="56 53">obstacles</text>
+  </page>
+</ipe>

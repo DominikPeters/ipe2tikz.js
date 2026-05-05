@@ -1,0 +1,22 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="base-pathstyle">
+    <pathstyle cap="1" join="1" fillrule="eofill" />
+  </ipestyle>
+  <ipestyle name="override-pathstyle">
+    <pathstyle join="2" />
+  </ipestyle>
+  <page>
+    <path stroke="black" fill="white">
+      0 0 m
+      20 0 l
+      20 20 l
+      h
+    </path>
+    <path stroke="black" cap="0" fillrule="wind">
+      30 0 m
+      50 0 l
+      50 20 l
+      h
+    </path>
+  </page>
+</ipe>

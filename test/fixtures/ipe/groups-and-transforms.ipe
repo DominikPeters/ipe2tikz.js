@@ -1,0 +1,11 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <page>
+    <group matrix="1 0 0 1 10 20">
+      <path stroke="black" matrix="0 -1 1 0 0 0">
+        0 0 m
+        10 0 l
+      </path>
+      <text pos="5 5">Grouped</text>
+    </group>
+  </page>
+</ipe>

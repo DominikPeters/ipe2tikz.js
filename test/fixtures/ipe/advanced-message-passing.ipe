@@ -1,0 +1,40 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="factor">
+    <color name="var" value="0.88 0.95 1" />
+    <color name="fac" value="0.95 0.90 1" />
+    <color name="msg" value="0.12 0.25 0.35" />
+    <pen name="edge" value="0.75" />
+  </ipestyle>
+  <page title="Factor graph message passing">
+    <group matrix="1 0 0 1 10 8">
+      <path stroke="msg" fill="fac">
+        46 30 m
+        60 30 l
+        60 44 l
+        46 44 l
+        h
+      </path>
+      <path stroke="msg" fill="fac">
+        92 30 m
+        106 30 l
+        106 44 l
+        92 44 l
+        h
+      </path>
+      <path stroke="msg" fill="var">9 0 0 9 18 37 e</path>
+      <path stroke="msg" fill="var">9 0 0 9 76 37 e</path>
+      <path stroke="msg" fill="var">9 0 0 9 134 37 e</path>
+      <path stroke="msg" pen="edge" arrow="normal/normal">27 37 m 46 37 l</path>
+      <path stroke="msg" pen="edge" arrow="normal/normal">60 37 m 67 37 l</path>
+      <path stroke="msg" pen="edge" arrow="normal/normal">85 37 m 92 37 l</path>
+      <path stroke="msg" pen="edge" arrow="normal/normal">106 37 m 125 37 l</path>
+      <path stroke="msg" dash="[2 2] 0" arrow="normal/normal">76 46 m 76 68 l 53 68 l 53 44 l</path>
+      <text pos="18 37" halign="center" valign="center">$x_1$</text>
+      <text pos="76 37" halign="center" valign="center">$x_2$</text>
+      <text pos="134 37" halign="center" valign="center">$x_3$</text>
+      <text pos="53 37" halign="center" valign="center">$f$</text>
+      <text pos="99 37" halign="center" valign="center">$g$</text>
+      <text pos="64 74">$m_{f\to x_2}$</text>
+    </group>
+  </page>
+</ipe>

@@ -1,0 +1,23 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="fill-effects">
+    <gradient name="fade" type="axial" extend="yes" coords="0 0 20 0">
+      <stop offset="0" color="1 0 0" />
+      <stop offset="1" color="0 0 1" />
+    </gradient>
+    <tiling name="hatch" angle="45" step="6" width="0.5" />
+  </ipestyle>
+  <page>
+    <path fill="white" gradient="fade">
+      0 0 m
+      20 0 l
+      20 20 l
+      h
+    </path>
+    <path fill="white" tiling="hatch">
+      30 0 m
+      50 0 l
+      50 20 l
+      h
+    </path>
+  </page>
+</ipe>
