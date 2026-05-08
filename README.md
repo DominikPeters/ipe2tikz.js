@@ -3,6 +3,56 @@
 Clean-room JavaScript/TypeScript converter from Ipe XML (`.ipe`) documents to
 TikZ.
 
+## Installation
+
+```sh
+npm install ipe2tikz
+```
+
+## CLI usage
+
+```sh
+# Convert an Ipe file and write TikZ to stdout
+ipe2tikz diagram.ipe
+
+# Write TikZ to a file
+ipe2tikz diagram.ipe -o diagram.tex
+
+# Read from stdin
+cat diagram.ipe | ipe2tikz
+
+# Select a page or view using 1-based CLI indices
+ipe2tikz diagram.ipe --page 2 --view 1 -o page-2-view-1.tex
+```
+
+Options:
+
+| Option | Description |
+|--------|-------------|
+| `-o, --output FILE` | Write TikZ output to `FILE` |
+| `--page N` | Convert page `N`; defaults to page 1 |
+| `--view N` | Convert view `N` on the selected page |
+| `-h, --help` | Show help |
+
+Diagnostics are printed to stderr. Errors exit with status 1; warnings still
+emit TikZ and exit successfully.
+
+## Web demo
+
+Build the package, then open or serve the static demo:
+
+```sh
+npm run build
+python3 -m http.server 8123
+```
+
+Then visit `http://localhost:8123/demo/`. The demo imports
+`dist/browser/ipe2tikz.js`, runs entirely in the browser, and includes a small
+built-in sample.
+
+On pushes to `main`, GitHub Actions builds and deploys the same static demo to
+GitHub Pages.
+
 This repository is intentionally set up around the public Ipe XML format
 documentation, not Ipe implementation source. The initial scope is:
 
@@ -85,6 +135,11 @@ Unsupported path operators are preserved in the IR as unsupported commands and
 omitted from TikZ with diagnostics. Image emission, mixed arc paths, general
 B-splines, gradients, tilings, exact arrow shape/size mapping, and fuller text
 layout handling are future work.
+
+Embedded Ipe bitmaps are parsed as metadata. They currently emit an
+`unsupported-image` diagnostic unless a programmatic caller supplies
+`imagePath` to map bitmap IDs to existing image files; the CLI and demo do not
+extract bitmap files.
 
 Black-box comparison harness:
 

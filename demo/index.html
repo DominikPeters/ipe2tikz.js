@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ipe2tikz demo</title>
+<style>
+  :root {
+    --bg: #f5f7f8;
+    --panel: #ffffff;
+    --border: #d7dde2;
+    --text: #17202a;
+    --muted: #687582;
+    --accent: #146c94;
+    --accent-dark: #0f526f;
+    --warning: #8a5b00;
+    --error: #a82020;
+    --code: #111827;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 650;
+  }
+
+  header a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+    gap: 1px;
+    min-height: calc(100vh - 53px);
+    background: var(--border);
+  }
+
+  section {
+    min-width: 0;
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 650;
+    text-transform: uppercase;
+  }
+
+  select, button {
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+  }
+
+  select {
+    min-width: 130px;
+    padding: 0 8px;
+  }
+
+  button {
+    padding: 0 12px;
+    cursor: pointer;
+  }
+
+  button.primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+
+  button.primary:hover { background: var(--accent-dark); }
+  button:disabled { cursor: default; opacity: 0.55; }
+
+  .dropzone {
+    margin: 12px;
+    padding: 22px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    text-align: center;
+    color: var(--muted);
+    background: #fbfcfd;
+    cursor: pointer;
+  }
+
+  .dropzone strong {
+    display: block;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .dropzone.hover {
+    border-color: var(--accent);
+    background: #eef7fb;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    resize: none;
+    border: 0;
+    border-top: 1px solid var(--border);
+    padding: 12px;
+    outline: none;
+    font: 12px/1.5 "SF Mono", "Menlo", "Consolas", monospace;
+  }
+
+  #output {
+    background: var(--code);
+    color: #e5e7eb;
+  }
+
+  .status {
+    min-height: 34px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .diagnostics {
+    max-height: 180px;
+    overflow: auto;
+    border-top: 1px solid var(--border);
+    padding: 8px 12px;
+    font: 12px/1.45 "SF Mono", "Menlo", "Consolas", monospace;
+  }
+
+  .diagnostic-warning { color: var(--warning); }
+  .diagnostic-error { color: var(--error); }
+  .hidden { display: none; }
+
+  @media (max-width: 820px) {
+    main { grid-template-columns: 1fr; }
+    section { min-height: 55vh; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>ipe2tikz demo</h1>
+  <a href="https://github.com/DominikPeters/ipe2tikz.js">GitHub</a>
+</header>
+
+<main>
+  <section>
+    <div class="dropzone" id="dropzone" tabindex="0">
+      <strong>Drop a .ipe file here or click to open</strong>
+      <span>Runs entirely in your browser</span>
+    </div>
+    <input type="file" id="file-input" accept=".ipe,.xml,text/xml" hidden>
+    <div class="toolbar">
+      <div class="field">
+        <label for="page-select">Page</label>
+        <select id="page-select"></select>
+      </div>
+      <div class="field">
+        <label for="view-select">View</label>
+        <select id="view-select"></select>
+      </div>
+      <button class="primary" id="convert-btn">Convert</button>
+      <button id="sample-btn">Load sample</button>
+    </div>
+    <textarea id="input" spellcheck="false"></textarea>
+    <div class="status" id="status">Ready</div>
+  </section>
+
+  <section>
+    <div class="toolbar">
+      <button id="copy-btn">Copy TikZ</button>
+    </div>
+    <textarea id="output" readonly spellcheck="false" placeholder="TikZ output will appear here"></textarea>
+    <div class="diagnostics hidden" id="diagnostics"></div>
+  </section>
+</main>
+
+<script type="module">
+import { convertIpeToTikz, parseIpeXml } from "../dist/browser/ipe2tikz.js";
+
+const sample = `<ipe version="70200">
+<page title="sample">
+  <layer name="alpha"/>
+  <path layer="alpha" stroke="black" fill="1 0.7 0.2" pen="1">0 0 m 72 0 l 72 36 l 0 36 l h</path>
+  <text layer="alpha" pos="36 18" stroke="black" halign="center" valign="center">Hello $x$</text>
+</page>
+</ipe>`;
+
+const input = document.getElementById("input");
+const output = document.getElementById("output");
+const status = document.getElementById("status");
+const diagnostics = document.getElementById("diagnostics");
+const pageSelect = document.getElementById("page-select");
+const viewSelect = document.getElementById("view-select");
+const convertBtn = document.getElementById("convert-btn");
+const copyBtn = document.getElementById("copy-btn");
+const sampleBtn = document.getElementById("sample-btn");
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("file-input");
+
+let parsed = null;
+
+loadSource(sample, "Loaded sample");
+
+sampleBtn.addEventListener("click", () => loadSource(sample, "Loaded sample"));
+convertBtn.addEventListener("click", convert);
+copyBtn.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(output.value);
+  copyBtn.textContent = "Copied";
+  setTimeout(() => { copyBtn.textContent = "Copy TikZ"; }, 1200);
+});
+
+dropzone.addEventListener("click", () => fileInput.click());
+dropzone.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") fileInput.click();
+});
+dropzone.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  dropzone.classList.add("hover");
+});
+dropzone.addEventListener("dragleave", () => dropzone.classList.remove("hover"));
+dropzone.addEventListener("drop", async (event) => {
+  event.preventDefault();
+  dropzone.classList.remove("hover");
+  const file = event.dataTransfer.files[0];
+  if (file) await loadFile(file);
+});
+fileInput.addEventListener("change", async () => {
+  const file = fileInput.files[0];
+  if (file) await loadFile(file);
+});
+
+input.addEventListener("input", () => parseInput("Edited input"));
+pageSelect.addEventListener("change", updateViewOptions);
+
+async function loadFile(file) {
+  const text = await file.text();
+  loadSource(text, `Loaded ${file.name}`);
+}
+
+function loadSource(source, message) {
+  input.value = source;
+  parseInput(message);
+  convert();
+}
+
+function parseInput(message) {
+  parsed = parseIpeXml(input.value);
+  renderDiagnostics(parsed.diagnostics);
+  populatePages();
+  status.textContent = parsed.document
+    ? `${message}: ${parsed.document.pages.length} page(s)`
+    : "Input could not be parsed";
+}
+
+function populatePages() {
+  pageSelect.innerHTML = "";
+  if (!parsed.document) {
+    pageSelect.disabled = true;
+    viewSelect.disabled = true;
+    convertBtn.disabled = true;
+    return;
+  }
+
+  parsed.document.pages.forEach((page, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = page.title ? `${index + 1}: ${page.title}` : `Page ${index + 1}`;
+    pageSelect.appendChild(option);
+  });
+
+  pageSelect.disabled = false;
+  convertBtn.disabled = false;
+  updateViewOptions();
+}
+
+function updateViewOptions() {
+  viewSelect.innerHTML = "";
+  const page = parsed?.document?.pages[Number(pageSelect.value)];
+  const allOption = document.createElement("option");
+  allOption.value = "";
+  allOption.textContent = "All layers";
+  viewSelect.appendChild(allOption);
+
+  if (!page || page.views.length === 0) {
+    viewSelect.disabled = true;
+    return;
+  }
+
+  page.views.forEach((view, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = view.name ? `${index + 1}: ${view.name}` : `View ${index + 1}`;
+    viewSelect.appendChild(option);
+  });
+  viewSelect.disabled = false;
+}
+
+function convert() {
+  const page = Number(pageSelect.value || 0);
+  const view = viewSelect.value === "" ? undefined : Number(viewSelect.value);
+  const result = convertIpeToTikz(input.value, { page, view });
+  output.value = result.tikz;
+  renderDiagnostics(result.diagnostics);
+
+  const errors = result.diagnostics.filter((diagnostic) => diagnostic.severity === "error").length;
+  const warnings = result.diagnostics.filter((diagnostic) => diagnostic.severity === "warning").length;
+  status.textContent = errors || warnings
+    ? `Converted with ${errors} error(s), ${warnings} warning(s)`
+    : "Converted without diagnostics";
+}
+
+function renderDiagnostics(items) {
+  diagnostics.innerHTML = "";
+  diagnostics.classList.toggle("hidden", items.length === 0);
+  for (const item of items) {
+    const line = document.createElement("div");
+    line.className = `diagnostic-${item.severity}`;
+    line.textContent = `${item.severity}: ${item.message} [${item.code}]`;
+    diagnostics.appendChild(line);
+  }
+}
+</script>
+</body>
+</html>

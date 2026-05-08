@@ -8,16 +8,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "browser": "./dist/browser/ipe2tikz.js",
       "import": "./dist/index.js"
     }
   },
+  "bin": {
+    "ipe2tikz": "./dist/cli.js"
+  },
   "files": [
     "dist",
+    "demo",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=esm --platform=browser --outfile=dist/browser/ipe2tikz.js",
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -34,6 +39,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "esbuild": "^0.27.7",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"
