@@ -1,0 +1,120 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <bitmap id="1" width="2" height="2" ColorSpace="DeviceRGB">
+    1d4ed8 22c55e f97316 111827
+  </bitmap>
+  <ipestyle name="hard-composite">
+    <color name="grid" value="0.88" />
+    <color name="major" value="0.70" />
+    <color name="ink" value="0.02 0.10 0.18" />
+    <color name="signal" value="0.02 0.34 0.62" />
+    <color name="alert" value="0.85 0.12 0.12" />
+    <color name="soft" value="0.92" />
+    <pen name="gridpen" value="0.16" />
+    <pen name="majorpen" value="0.35" />
+    <pen name="thin" value="0.55" />
+    <pen name="wire" value="1.1" />
+    <pen name="heavy" value="1.8" />
+    <arrowsize name="normal" value="8" />
+    <arrowsize name="large" value="13" />
+    <opacity name="ghost" value="0.42" />
+    <gradient name="energy" type="axial" extend="yes" coords="20 30 120 30">
+      <stop offset="0" color="0.08 0.34 0.74" />
+      <stop offset="1" color="0.85 0.12 0.12" />
+    </gradient>
+    <tiling name="uncertainty" angle="45" step="5" width="0.42" />
+    <symbol name="mark/estimator">
+      <group>
+        <path stroke="ink" fill="white" pen="thin">-5 -4 m 5 -4 l 5 4 l -5 4 l h</path>
+        <path stroke="signal" pen="thin">-3 -1 m -1 2 l 2 -2 l 4 1 l</path>
+      </group>
+    </symbol>
+  </ipestyle>
+  <page title="Hard composite scientific figure">
+    <path stroke="grid" pen="gridpen">0 0 m 180 0 l</path>
+    <path stroke="grid" pen="gridpen">0 5 m 180 5 l</path>
+    <path stroke="major" pen="majorpen">0 10 m 180 10 l</path>
+    <path stroke="grid" pen="gridpen">0 15 m 180 15 l</path>
+    <path stroke="major" pen="majorpen">0 20 m 180 20 l</path>
+    <path stroke="grid" pen="gridpen">0 25 m 180 25 l</path>
+    <path stroke="major" pen="majorpen">0 30 m 180 30 l</path>
+    <path stroke="grid" pen="gridpen">0 35 m 180 35 l</path>
+    <path stroke="major" pen="majorpen">0 40 m 180 40 l</path>
+    <path stroke="grid" pen="gridpen">0 45 m 180 45 l</path>
+    <path stroke="major" pen="majorpen">0 50 m 180 50 l</path>
+    <path stroke="grid" pen="gridpen">0 55 m 180 55 l</path>
+    <path stroke="major" pen="majorpen">0 60 m 180 60 l</path>
+    <path stroke="grid" pen="gridpen">0 65 m 180 65 l</path>
+    <path stroke="major" pen="majorpen">0 70 m 180 70 l</path>
+    <path stroke="grid" pen="gridpen">0 75 m 180 75 l</path>
+    <path stroke="major" pen="majorpen">0 80 m 180 80 l</path>
+    <path stroke="grid" pen="gridpen">0 85 m 180 85 l</path>
+    <path stroke="major" pen="majorpen">0 90 m 180 90 l</path>
+    <path stroke="grid" pen="gridpen">0 95 m 180 95 l</path>
+    <path stroke="major" pen="majorpen">0 100 m 180 100 l</path>
+    <path stroke="grid" pen="gridpen">0 105 m 180 105 l</path>
+    <path stroke="major" pen="majorpen">0 110 m 180 110 l</path>
+    <path stroke="grid" pen="gridpen">0 115 m 180 115 l</path>
+    <path stroke="major" pen="majorpen">0 120 m 180 120 l</path>
+    <path stroke="grid" pen="gridpen">0 0 m 0 120 l</path>
+    <path stroke="grid" pen="gridpen">5 0 m 5 120 l</path>
+    <path stroke="major" pen="majorpen">10 0 m 10 120 l</path>
+    <path stroke="grid" pen="gridpen">15 0 m 15 120 l</path>
+    <path stroke="major" pen="majorpen">20 0 m 20 120 l</path>
+    <path stroke="grid" pen="gridpen">25 0 m 25 120 l</path>
+    <path stroke="major" pen="majorpen">30 0 m 30 120 l</path>
+    <path stroke="grid" pen="gridpen">35 0 m 35 120 l</path>
+    <path stroke="major" pen="majorpen">40 0 m 40 120 l</path>
+    <path stroke="grid" pen="gridpen">45 0 m 45 120 l</path>
+    <path stroke="major" pen="majorpen">50 0 m 50 120 l</path>
+    <path stroke="grid" pen="gridpen">55 0 m 55 120 l</path>
+    <path stroke="major" pen="majorpen">60 0 m 60 120 l</path>
+    <path stroke="grid" pen="gridpen">65 0 m 65 120 l</path>
+    <path stroke="major" pen="majorpen">70 0 m 70 120 l</path>
+    <path stroke="grid" pen="gridpen">75 0 m 75 120 l</path>
+    <path stroke="major" pen="majorpen">80 0 m 80 120 l</path>
+    <path stroke="grid" pen="gridpen">85 0 m 85 120 l</path>
+    <path stroke="major" pen="majorpen">90 0 m 90 120 l</path>
+    <path stroke="grid" pen="gridpen">95 0 m 95 120 l</path>
+    <path stroke="major" pen="majorpen">100 0 m 100 120 l</path>
+    <path stroke="grid" pen="gridpen">105 0 m 105 120 l</path>
+    <path stroke="major" pen="majorpen">110 0 m 110 120 l</path>
+    <path stroke="grid" pen="gridpen">115 0 m 115 120 l</path>
+    <path stroke="major" pen="majorpen">120 0 m 120 120 l</path>
+    <path stroke="grid" pen="gridpen">125 0 m 125 120 l</path>
+    <path stroke="major" pen="majorpen">130 0 m 130 120 l</path>
+    <path stroke="grid" pen="gridpen">135 0 m 135 120 l</path>
+    <path stroke="major" pen="majorpen">140 0 m 140 120 l</path>
+    <path stroke="grid" pen="gridpen">145 0 m 145 120 l</path>
+    <path stroke="major" pen="majorpen">150 0 m 150 120 l</path>
+    <path stroke="grid" pen="gridpen">155 0 m 155 120 l</path>
+    <path stroke="major" pen="majorpen">160 0 m 160 120 l</path>
+    <path stroke="grid" pen="gridpen">165 0 m 165 120 l</path>
+    <path stroke="major" pen="majorpen">170 0 m 170 120 l</path>
+    <path stroke="grid" pen="gridpen">175 0 m 175 120 l</path>
+    <path stroke="major" pen="majorpen">180 0 m 180 120 l</path>
+
+    <group clip="14 16 m 142 16 l 142 108 l 14 108 l h">
+      <path stroke="ink" fill="soft" gradient="energy" pen="thin">
+        20 25 m 138 25 l 126 72 l 90 102 l 46 82 l h
+      </path>
+      <path fill="white" tiling="uncertainty" opacity="ghost">
+        34 34 m 118 34 l 130 58 l 76 74 l 38 60 l h
+      </path>
+      <path stroke="signal" pen="wire" arrow="normal/large">
+        20 30 m 44 88 76 14 108 68 132 48 c
+      </path>
+      <path stroke="alert" pen="wire" rarrow="normal/normal">
+        130 70 m 30 0 0 18 100 70 100 88 a 94 96 l
+      </path>
+    </group>
+
+    <use name="mark/estimator" pos="45 88" stroke="signal" fill="white" pen="thin" />
+    <use name="mark/estimator" pos="105 38" matrix="0.866 0.5 -0.5 0.866 0 0" stroke="alert" fill="white" pen="thin" />
+    <image rect="146 20 170 44" bitmap="1" />
+
+    <path stroke="ink" pen="thin">145 20 m 171 20 l 171 45 l 145 45 l h</path>
+    <text pos="20 112" size="normal" valign="top">state estimator stress test</text>
+    <text pos="86 18" halign="center" valign="bottom">gradient + hatch + spline + arc + image</text>
+    <text pos="170 48" halign="right" valign="bottom">2x2 bitmap</text>
+  </page>
+</ipe>

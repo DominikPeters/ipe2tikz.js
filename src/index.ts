@@ -3,6 +3,7 @@ import { emitTikz } from "./tikz.js";
 
 export type {
   IpeColor,
+  IpeBitmap,
   IpeDashStyle,
   IpeDocument,
   IpeGroupObject,
@@ -44,6 +45,7 @@ export interface IpeToTikzResult {
 export interface ConvertIpeToTikzOptions {
   page?: number;
   view?: number;
+  imagePath?: (bitmapId: string) => string | undefined;
 }
 
 export function convertIpeToTikz(source: string, options: ConvertIpeToTikzOptions = {}): IpeToTikzResult {
@@ -58,7 +60,13 @@ export function convertIpeToTikz(source: string, options: ConvertIpeToTikzOption
   }
 
   return {
-    tikz: emitTikz(parseResult.document, options.page ?? 0, options.view, diagnostics),
+    tikz: emitTikz(
+      parseResult.document,
+      options.page ?? 0,
+      options.view,
+      diagnostics,
+      options.imagePath ? { imagePath: options.imagePath } : {}
+    ),
     diagnostics
   };
 }

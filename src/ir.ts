@@ -7,8 +7,19 @@ export interface IpeToTikzDiagnostic {
 export interface IpeDocument {
   version: string;
   preamble?: string;
+  bitmaps: Record<string, IpeBitmap>;
   stylesheets: IpeStylesheet[];
   pages: IpePage[];
+}
+
+export interface IpeBitmap {
+  id: string;
+  width: number;
+  height: number;
+  colorSpace: "DeviceGray" | "DeviceGrayAlpha" | "DeviceRGB" | "DeviceRGBAlpha";
+  filter?: "FlateDecode" | "DCTDecode";
+  encoding?: "base64";
+  data: string;
 }
 
 export interface IpeStylesheet {

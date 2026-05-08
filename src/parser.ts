@@ -40,7 +40,8 @@ const parser = new XMLParser({
   attributeNamePrefix: "",
   textNodeName: "#text",
   preserveOrder: true,
-  trimValues: false
+  trimValues: false,
+  parseTagValue: false
 });
 
 export function parseIpeXml(source: string): { document?: IpeDocument; diagnostics: IpeToTikzDiagnostic[] } {
@@ -82,6 +83,7 @@ export function parseIpeXml(source: string): { document?: IpeDocument; diagnosti
     });
   }
 
+  const bitmaps = Object.fromEntries(root.children.flatMap((child) => (child.name === "bitmap" ? parseBitmap(child) : [])));
   const stylesheets = root.children
     .filter((child) => child.name === "ipestyle")
     .map((stylesheet) => parseStylesheet(stylesheet, diagnostics));
@@ -102,6 +104,7 @@ export function parseIpeXml(source: string): { document?: IpeDocument; diagnosti
 
   const document: IpeDocument = {
     version,
+    bitmaps,
     stylesheets,
     pages
   };
@@ -318,6 +321,40 @@ function parseStylesheet(element: XmlElement, diagnostics: IpeToTikzDiagnostic[]
   }
 
   return stylesheet;
+}
+
+function parseBitmap(element: XmlElement): Array<[string, IpeDocument["bitmaps"][string]]> {
+  const id = element.attributes.id;
+  const width = Number(element.attributes.width);
+  const height = Number(element.attributes.height);
+  if (!id || !Number.isFinite(width) || !Number.isFinite(height)) {
+    return [];
+  }
+
+  const filter = element.attributes.Filter === "FlateDecode" || element.attributes.Filter === "DCTDecode" ? element.attributes.Filter : undefined;
+  const bitmap: IpeDocument["bitmaps"][string] = {
+    id,
+    width,
+    height,
+    colorSpace: parseBitmapColorSpace(element.attributes.ColorSpace),
+    data: element.text.replace(/\s+/gu, "")
+  };
+  if (filter) {
+    bitmap.filter = filter;
+  }
+  if (element.attributes.encoding === "base64") {
+    bitmap.encoding = "base64";
+  }
+  return [
+    [
+      id,
+      bitmap
+    ]
+  ];
+}
+
+function parseBitmapColorSpace(source: string | undefined): IpeDocument["bitmaps"][string]["colorSpace"] {
+  return source === "DeviceGray" || source === "DeviceGrayAlpha" || source === "DeviceRGBAlpha" ? source : "DeviceRGB";
 }
 
 function parseObjects(elements: XmlElement[], diagnostics: IpeToTikzDiagnostic[]): IpeObject[] {

@@ -2,8 +2,9 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { parseArgs } from "node:util";
+import { deflateSync } from "node:zlib";
 
-import { convertIpeToTikz, parseIpeXml } from "../src/index.js";
+import { convertIpeToTikz, parseIpeXml, type IpeBitmap } from "../src/index.js";
 
 const { values } = parseArgs({
   options: {
@@ -33,8 +34,9 @@ if (!values.input && !values.all) {
     const source = readText(input);
     const parsed = parseIpeXml(source);
     const selectedView = parsed.document?.pages[0]?.views.length ? 0 : undefined;
-    const conversion = convertIpeToTikz(source, { view: selectedView });
     const stem = basename(input, ".ipe");
+    const imageAssets = parsed.document ? writeBitmapAssets(parsed.document.bitmaps, stem, outDir) : {};
+    const conversion = convertIpeToTikz(source, { view: selectedView, imagePath: (bitmapId) => imageAssets[bitmapId] });
     const tikzPath = join(outDir, `${stem}.tikz`);
     writeFileSync(tikzPath, conversion.tikz);
     const tikzRender = renderTikz(stem, conversion.tikz, parsed.document?.preamble, outDir, tools.pdflatex);
@@ -283,14 +285,91 @@ function parseRmse(output: string): { rmse: number; normalizedRmse: number } {
 function standaloneTikzDocument(tikz: string, preamble: string | undefined): string {
   return [
     "\\documentclass[tikz,border=2pt]{standalone}",
+    "\\usepackage{graphicx}",
     "\\usepackage{tikz}",
     "\\usetikzlibrary{arrows.meta}",
+    "\\usetikzlibrary{patterns.meta}",
     preamble?.trim() ?? "",
     "\\begin{document}",
     tikz,
     "\\end{document}",
     ""
   ].join("\n");
+}
+
+function writeBitmapAssets(bitmaps: Record<string, IpeBitmap>, stem: string, outDir: string): Record<string, string> {
+  return Object.fromEntries(
+    Object.values(bitmaps).flatMap((bitmap) => {
+      const asset = bitmapAsset(bitmap);
+      if (!asset) {
+        return [];
+      }
+      const path = join(outDir, `${stem}-bitmap-${bitmap.id}.${asset.extension}`);
+      writeFileSync(path, asset.data);
+      return [[bitmap.id, path]];
+    })
+  );
+}
+
+function bitmapAsset(bitmap: IpeBitmap): { extension: "png"; data: Buffer } | undefined {
+  if (bitmap.filter || bitmap.encoding || bitmap.colorSpace.endsWith("Alpha")) {
+    return undefined;
+  }
+
+  const bytes = Buffer.from(bitmap.data, "hex");
+  if (bitmap.colorSpace === "DeviceGray") {
+    return { extension: "png", data: pngData(bitmap.width, bitmap.height, 0, bytes) };
+  }
+  if (bitmap.colorSpace === "DeviceRGB") {
+    return { extension: "png", data: pngData(bitmap.width, bitmap.height, 2, bytes) };
+  }
+  return undefined;
+}
+
+function pngData(width: number, height: number, colorType: 0 | 2, pixels: Buffer): Buffer {
+  const channels = colorType === 0 ? 1 : 3;
+  const rowLength = width * channels;
+  const rows: Buffer[] = [];
+  for (let row = 0; row < height; row += 1) {
+    const start = row * rowLength;
+    rows.push(Buffer.from([0]), pixels.subarray(start, start + rowLength));
+  }
+
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(width, 0);
+  header.writeUInt32BE(height, 4);
+  header[8] = 8;
+  header[9] = colorType;
+  header[10] = 0;
+  header[11] = 0;
+  header[12] = 0;
+
+  return Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    pngChunk("IHDR", header),
+    pngChunk("IDAT", deflateSync(Buffer.concat(rows))),
+    pngChunk("IEND", Buffer.alloc(0))
+  ]);
+}
+
+function pngChunk(type: string, data: Buffer): Buffer {
+  const typeBytes = Buffer.from(type, "ascii");
+  const length = Buffer.alloc(4);
+  length.writeUInt32BE(data.length, 0);
+  const crc = Buffer.alloc(4);
+  crc.writeUInt32BE(crc32(Buffer.concat([typeBytes, data])), 0);
+  return Buffer.concat([length, typeBytes, data, crc]);
+}
+
+function crc32(data: Buffer): number {
+  let crc = 0xffffffff;
+  for (const byte of data) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = crc & 1 ? (crc >>> 1) ^ 0xedb88320 : crc >>> 1;
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
 }
 
 function htmlReport(report: ComparisonReport, htmlPath: string): string {

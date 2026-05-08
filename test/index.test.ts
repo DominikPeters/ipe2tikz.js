@@ -30,6 +30,8 @@ const fidelityFixtures = [
   "fidelity-text-grid.ipe"
 ] as const;
 
+const hardFixtures = ["hard-composite-science.ipe"] as const;
+
 describe("convertIpeToTikz", () => {
   it("parses Ipe XML into a typed IR", () => {
     const result = parseIpeXml(fixture("polyline.ipe"));
@@ -217,9 +219,12 @@ describe("convertIpeToTikz", () => {
     const converted = convertIpeToTikz(fixture("gradients-and-tilings.ipe"));
 
     expect(converted.tikz).toContain(
-      "\\path[fill=white, shade, left color={rgb,1:red,1;green,0;blue,0}, right color={rgb,1:red,0;green,0;blue,1}, shading angle=0]"
+      "\\path[fill=white, shade, left color={rgb,1:red,1;green,0;blue,0}, right color={rgb,1:red,0;green,0;blue,1}, shading angle=90]"
     );
-    expect(converted.diagnostics.map((diagnostic) => diagnostic.code)).toEqual(["unsupported-tiling"]);
+    expect(converted.tikz).toContain(
+      "\\path[fill=white, pattern={Lines[angle=45,distance=6pt,line width=0.5pt]}, pattern color=white]"
+    );
+    expect(converted.diagnostics).toEqual([]);
   });
 
   it("resolves text sizes and label text styles", () => {
@@ -351,20 +356,28 @@ describe("convertIpeToTikz", () => {
     );
   });
 
-  it("parses image metadata and reports image emission as unsupported", () => {
+  it("parses image metadata and emits includegraphics when an image path resolver is provided", () => {
     const parsed = parseIpeXml(fixture("images.ipe"));
 
     expect(parsed.diagnostics).toEqual([]);
+    expect(parsed.document?.bitmaps["1"]).toMatchObject({
+      width: 1,
+      height: 1,
+      colorSpace: "DeviceGray",
+      data: "00"
+    });
     expect(parsed.document?.pages[0]?.objects[0]).toMatchObject({
       kind: "image",
       rect: [0, 0, 10, 20],
       bitmap: "1"
     });
 
-    const converted = convertIpeToTikz(fixture("images.ipe"));
+    const converted = convertIpeToTikz(fixture("images.ipe"), { imagePath: (bitmapId) => `images/${bitmapId}.pgm` });
 
-    expect(converted.tikz).toBe("\\begin{tikzpicture}\n\\end{tikzpicture}\n");
-    expect(converted.diagnostics.map((diagnostic) => diagnostic.code)).toEqual(["unsupported-image"]);
+    expect(converted.tikz).toContain(
+      "\\node[anchor=south west, inner sep=0pt] at (0pt,0pt) {\\includegraphics[width=10pt,height=20pt]{images/1.pgm}};"
+    );
+    expect(converted.diagnostics).toEqual([]);
   });
 
   it("reports unsupported path operators without failing the whole conversion", () => {
@@ -471,6 +484,18 @@ describe("convertIpeToTikz", () => {
     expect(converted.diagnostics).toEqual([]);
     expect(converted.tikz).toContain("\\begin{tikzpicture}");
     expect(converted.tikz).toContain("\\path");
+  });
+
+  it.each(hardFixtures)("converts hard visual fixture %s without diagnostics", (name) => {
+    const source = fixture(name);
+    const parsed = parseIpeXml(source);
+    expect(parsed.diagnostics).toEqual([]);
+
+    const converted = convertIpeToTikz(source, { imagePath: (bitmapId) => `fixtures/${bitmapId}.png` });
+    expect(converted.diagnostics).toEqual([]);
+    expect(converted.tikz).toContain("\\includegraphics");
+    expect(converted.tikz).toContain("shade");
+    expect(converted.tikz).toContain("pattern={Lines");
   });
 
   it("parses text metrics while letting TikZ anchor ordinary labels to their natural text boxes", () => {

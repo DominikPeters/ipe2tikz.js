@@ -27,6 +27,7 @@ interface EmitContext {
   document: IpeDocument;
   diagnostics: IpeToTikzDiagnostic[];
   indent: string;
+  imagePath?: (bitmapId: string) => string | undefined;
   symbolParameters?: {
     stroke: IpeColor;
     fill: IpeColor;
@@ -38,7 +39,8 @@ export function emitTikz(
   document: IpeDocument,
   pageIndex: number,
   viewIndex: number | undefined,
-  diagnostics: IpeToTikzDiagnostic[]
+  diagnostics: IpeToTikzDiagnostic[],
+  options: { imagePath?: (bitmapId: string) => string | undefined } = {}
 ): string {
   const page = document.pages[pageIndex];
   if (!page) {
@@ -57,6 +59,9 @@ export function emitTikz(
 
   const lines = ["\\begin{tikzpicture}"];
   const context: EmitContext = { document, diagnostics, indent: "  " };
+  if (options.imagePath) {
+    context.imagePath = options.imagePath;
+  }
   for (const object of page.objects) {
     if (viewState.visibleLayers && (!object.layer || !viewState.visibleLayers.has(object.layer))) {
       continue;
@@ -453,6 +458,22 @@ function emitUse(useObject: IpeUseObject, context: EmitContext): string[] {
 }
 
 function emitImage(image: IpeImageObject, context: EmitContext): string[] {
+  if (image.bitmap && context.imagePath) {
+    const source = context.imagePath(image.bitmap);
+    if (source) {
+      const [x1, y1, x2, y2] = image.rect;
+      const lowerLeft = { x: Math.min(x1, x2), y: Math.min(y1, y2) };
+      const width = Math.abs(x2 - x1);
+      const height = Math.abs(y2 - y1);
+      const options = [`anchor=south west`, "inner sep=0pt"];
+      const node = `\\node${formatOptions(options)} at ${formatPoint(lowerLeft)} {\\includegraphics[width=${formatNumber(width)}pt,height=${formatNumber(height)}pt]{${escapeTeXPath(source)}}};`;
+      if (isIdentityMatrix(image.matrix)) {
+        return [`${context.indent}${node}`];
+      }
+      return [`${context.indent}\\begin{scope}${formatOptions(matrixOptions(image.matrix))}`, `${context.indent}  ${node}`, `${context.indent}\\end{scope}`];
+    }
+  }
+
   context.diagnostics.push({
     severity: "warning",
     code: "unsupported-image",
@@ -461,6 +482,10 @@ function emitImage(image: IpeImageObject, context: EmitContext): string[] {
       : "Inline image object is parsed but not emitted yet."
   });
   return [];
+}
+
+function escapeTeXPath(path: string): string {
+  return path.replace(/\\/gu, "/").replace(/([#$%&_{}])/gu, "\\$1");
 }
 
 function pathOptions(path: IpePathObject, context: EmitContext): string[] {
@@ -475,6 +500,8 @@ function pathOptions(path: IpePathObject, context: EmitContext): string[] {
   const handledEffects = new Set<IpeUnsupportedPathEffect>();
   for (const effect of path.unsupportedEffects) {
     if (effect.kind === "gradient" && applyGradientOptions(effect.value, options, context)) {
+      handledEffects.add(effect);
+    } else if (effect.kind === "tiling" && applyTilingOptions(effect.value, path.fill, options, context)) {
       handledEffects.add(effect);
     }
   }
@@ -542,7 +569,20 @@ function applyGradientOptions(name: string, options: string[], context: EmitCont
   options.push("shade");
   options.push(`left color=${emitColor(first.color, context)}`);
   options.push(`right color=${emitColor(last.color, context)}`);
-  options.push(`shading angle=${formatNumber((Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI)}`);
+  options.push(`shading angle=${formatNumber((Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI + 90)}`);
+  return true;
+}
+
+function applyTilingOptions(name: string, fill: IpeColor | undefined, options: string[], context: EmitContext): boolean {
+  const tiling = lookupTiling(context.document.stylesheets, name);
+  if (!tiling || tiling.step <= 0 || tiling.width <= 0) {
+    return false;
+  }
+
+  options.push(
+    `pattern={Lines[angle=${formatNumber(tiling.angle)},distance=${formatNumber(tiling.step)}pt,line width=${formatNumber(tiling.width)}pt]}`
+  );
+  options.push(`pattern color=${fill ? emitColor(fill, context) : "black"}`);
   return true;
 }
 
@@ -965,6 +1005,16 @@ function lookupArrowSize(stylesheets: IpeStylesheet[], name: string): number | u
 function lookupGradient(stylesheets: IpeStylesheet[], name: string) {
   for (let index = stylesheets.length - 1; index >= 0; index -= 1) {
     const value = stylesheets[index]?.gradients[name];
+    if (value) {
+      return value;
+    }
+  }
+  return undefined;
+}
+
+function lookupTiling(stylesheets: IpeStylesheet[], name: string) {
+  for (let index = stylesheets.length - 1; index >= 0; index -= 1) {
+    const value = stylesheets[index]?.tilings[name];
     if (value) {
       return value;
     }
