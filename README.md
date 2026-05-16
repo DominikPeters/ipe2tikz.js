@@ -78,40 +78,40 @@ diagnostics. The package exports the IR and diagnostic TypeScript types from
 
 ## Current implementation status
 
-The converter currently parses Ipe XML into a typed intermediate
-representation before emitting TikZ. The supported subset is intentionally
-small and fixture-driven:
+The converter parses Ipe XML into a typed intermediate representation before
+emitting TikZ. The supported subset is fixture-driven and includes:
 
 - document roots with preambles, pages, layers, views, groups, paths, text
-  objects, and image metadata,
+  objects, image objects, and bitmap metadata,
 - inherited top-level object layers, view-based layer filtering, and view layer
   transforms,
-- group scopes, clipping paths, and object matrices,
-- document stylesheet parsing for color, pen, opacity, dashstyle, textsize,
-  textstyle, pathstyle, gradient, and tiling definitions, resolved using Ipe's
-  last-stylesheet-wins cascade where applicable,
-- stylesheet symbols, simple symbol references, symbol sizes, and
-  stroke/fill/pen symbol parameters, plus symbolic arrow sizes,
-- path operators `m`, `l`, `h`, Bezier forms of `c`/`q`, `e` ellipses, and
-  standalone `a` arcs,
-- basic stroke, fill, numeric pen width, dash style, line cap/join,
-  `arrows.meta` arrowheads, fill rule, opacity, and object matrix output,
-- label text and simple minipage nodes with text size/style handling,
-  height/depth metrics, and object transforms,
+- group scopes, clipping paths, object matrices, and text transforms,
+- stylesheet parsing and last-stylesheet-wins resolution for colors, pens,
+  opacities, dash styles, text sizes/styles, path styles, symbols, symbol
+  sizes, arrow sizes, gradients, and tilings,
+- stylesheet symbols and `use` objects, including `sym-stroke`, `sym-fill`,
+  `sym-pen`, numeric/symbolic symbol sizes, and unresolved-symbol diagnostics,
+- path operators `m`, `l`, `h`, cubic/quadratic Beziers, supported `s`/`C`
+  spline forms converted to cubic Beziers, `e` ellipses, standalone arcs, and
+  mixed arc paths converted to cubic Beziers,
+- stroke/fill, numeric and symbolic pen widths, dash styles, line cap/join,
+  fill rule, opacity/stroke opacity, object matrices, and approximate
+  `arrows.meta` arrowheads with symbolic arrow sizes,
+- axial two-color gradient shading and simple line tiling patterns,
+- label and minipage nodes with anchors, text size/style handling, opacity,
+  width/height/depth metrics, object transforms, and raw LaTeX text content,
+- image nodes as `\includegraphics` when a programmatic caller supplies
+  `imagePath` to map bitmap IDs to existing image files,
 - structured diagnostics for invalid XML, invalid required attributes,
-  unsupported objects, unresolved symbolic colors/pens/opacities/dash
-  styles/text sizes/text styles, unsupported path effects, and unsupported path
-  operators.
+  unsupported objects, unresolved symbolic styles, unsupported path effects,
+  unsupported path operators, and unsupported image output.
 
-Unsupported path operators are preserved in the IR as unsupported commands and
-omitted from TikZ with diagnostics. Image emission, mixed arc paths, general
-B-splines, gradients, tilings, exact arrow shape/size mapping, and fuller text
-layout handling are future work.
-
-Embedded Ipe bitmaps are parsed as metadata. They currently emit an
-`unsupported-image` diagnostic unless a programmatic caller supplies
-`imagePath` to map bitmap IDs to existing image files; the CLI and demo do not
-extract bitmap files.
+Unsupported or approximate areas include `L` and `u` path operators, radial
+gradients, full gradient stop/matrix/extend fidelity, exact Ipe tiling
+fidelity, bitmap extraction/decoding for the CLI and demo, exact Ipe arrow
+geometry, full text layout fidelity, and richer multi-object/special-symbol
+behavior. Unsupported operators and effects are preserved or diagnosed where
+possible and omitted from TikZ when they cannot be emitted.
 
 Black-box comparison harness:
 

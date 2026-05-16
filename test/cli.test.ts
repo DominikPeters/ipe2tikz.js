@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
-import { runCli, type CliIo } from "../src/cli.js";
+import { isCliEntrypoint, runCli, type CliIo } from "../src/cli.js";
 
 const simpleIpe = `<ipe version="70200"><page><path stroke="black" pen="1">0 0 m 72 0 l 72 36 l</path></page></ipe>`;
 const multipageIpe = `<ipe version="70200">
@@ -124,6 +125,17 @@ describe("ipe2tikz CLI", () => {
     expect(io.stdoutText()).toContain("\\begin{tikzpicture}");
     expect(io.stderrText()).toContain("warning:");
     expect(io.stderrText()).toContain("unsupported-path-operator");
+  });
+
+  it("recognizes npm .bin symlink paths as the CLI entrypoint", async () => {
+    await withTempDir(async (dir) => {
+      const target = join(dir, "cli.js");
+      const linkedBin = join(dir, "ipe2tikz");
+      await writeFile(target, "#!/usr/bin/env node\n", "utf8");
+      await symlink(target, linkedBin);
+
+      expect(await isCliEntrypoint(linkedBin, pathToFileURL(target).href)).toBe(true);
+    });
   });
 });
 

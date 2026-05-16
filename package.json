@@ -17,6 +17,7 @@
   },
   "files": [
     "dist",
+    "src",
     "demo",
     "README.md",
     "LICENSE"
@@ -24,6 +25,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=esm --platform=browser --outfile=dist/browser/ipe2tikz.js",
     "check": "tsc -p tsconfig.json --noEmit",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run build && npm run check && npm test && npm run smoke:package",
+    "smoke:package": "node scripts/smoke-package-bin.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "compare:ipe": "tsx scripts/compare-ipe-import.ts"
@@ -35,8 +39,19 @@
     "converter",
     "graphics"
   ],
-  "author": "",
+  "author": "Dominik Peters",
   "license": "MIT",
+  "homepage": "https://github.com/DominikPeters/ipe2tikz.js#readme",
+  "bugs": {
+    "url": "https://github.com/DominikPeters/ipe2tikz.js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DominikPeters/ipe2tikz.js.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
     "@types/node": "^25.6.0",
     "esbuild": "^0.27.7",

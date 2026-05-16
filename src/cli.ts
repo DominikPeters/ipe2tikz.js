@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, realpath, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -174,7 +174,23 @@ async function readStdin(): Promise<string> {
   return Buffer.concat(chunks).toString("utf8");
 }
 
-const invokedPath = process.argv[1] ? resolve(process.argv[1]) : undefined;
-if (invokedPath && fileURLToPath(import.meta.url) === invokedPath) {
+export async function isCliEntrypoint(invokedPath = process.argv[1], moduleUrl = import.meta.url): Promise<boolean> {
+  if (!invokedPath) return false;
+  const [realInvokedPath, realModulePath] = await Promise.all([
+    resolveRealPath(resolve(invokedPath)),
+    resolveRealPath(fileURLToPath(moduleUrl))
+  ]);
+  return realInvokedPath === realModulePath;
+}
+
+async function resolveRealPath(path: string): Promise<string> {
+  try {
+    return await realpath(path);
+  } catch {
+    return path;
+  }
+}
+
+if (await isCliEntrypoint()) {
   process.exitCode = await runCli(process.argv.slice(2));
 }
