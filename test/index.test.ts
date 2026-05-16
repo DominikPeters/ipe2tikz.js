@@ -92,9 +92,18 @@ describe("convertIpeToTikz", () => {
 
     expect(result.diagnostics).toEqual([]);
     expect(result.tikz).toContain(
-      "  \\path[draw=black, fill={rgb,1:red,1;green,0;blue,0}, line width=0.5pt, even odd rule] (0pt,0pt) -- (36pt,0pt) -- (36pt,36pt) -- (0pt,36pt) -- cycle;"
+      "  \\path[draw=black, fill=red, line width=0.5pt, even odd rule] (0pt,0pt) -- (36pt,0pt) -- (36pt,36pt) -- (0pt,36pt) -- cycle;"
     );
     expect(result.tikz).toContain("  \\node[anchor=center, inner sep=0pt, text=black] at (18pt,18pt) {Hello $x$};");
+  });
+
+  it("can emit explicit xcolor rgb model syntax when RGB conversion is disabled", () => {
+    const result = convertIpeToTikz(fixture("polygon-and-text.ipe"), { useXcolorRgbConvert: false });
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.tikz).toContain(
+      "  \\path[draw=black, fill={rgb,1:red,1;green,0;blue,0}, line width=0.5pt, even odd rule] (0pt,0pt) -- (36pt,0pt) -- (36pt,36pt) -- (0pt,36pt) -- cycle;"
+    );
   });
 
   it("resolves symbolic colors and pens through the stylesheet cascade", () => {
@@ -113,9 +122,9 @@ describe("convertIpeToTikz", () => {
 
     expect(converted.diagnostics).toEqual([]);
     expect(converted.tikz).toContain(
-      "  \\path[draw={rgb,1:red,1;green,0.5;blue,0}, line width=2pt] (0pt,0pt) -- (24pt,0pt);"
+      "  \\path[draw=orange, line width=2pt] (0pt,0pt) -- (24pt,0pt);"
     );
-    expect(converted.tikz).toContain("  \\node[anchor=south west, inner sep=0pt, text={rgb,1:red,1;green,0.5;blue,0}] at (0pt,12pt) {Styled};");
+    expect(converted.tikz).toContain("  \\node[anchor=south west, inner sep=0pt, text=orange] at (0pt,12pt) {Styled};");
   });
 
   it("resolves symbolic opacity for paths and text", () => {
@@ -229,10 +238,10 @@ describe("convertIpeToTikz", () => {
     const converted = convertIpeToTikz(fixture("gradients-and-tilings.ipe"));
 
     expect(converted.tikz).toContain(
-      "\\path[fill=white, shade, left color={rgb,1:red,1;green,0;blue,0}, right color={rgb,1:red,0;green,0;blue,1}, shading angle=90]"
+      "\\path[fill=white, shade, left color=red, right color=blue, shading angle=90]"
     );
     expect(converted.tikz).toContain(
-      "\\path[fill=white, shade, inner color={rgb,1:red,1;green,1;blue,1}, outer color={rgb,1:red,1;green,0;blue,0}]"
+      "\\path[fill=white, shade, inner color=white, outer color=red]"
     );
     expect(converted.tikz).toContain(
       "\\path[fill=white, pattern={Lines[angle=45,distance=6pt,line width=0.5pt]}, pattern color=white]"
@@ -322,7 +331,7 @@ describe("convertIpeToTikz", () => {
     expect(result.tikz).toContain("\\begin{scope}[shift={(10pt,20pt)}, scale=2]");
     expect(result.tikz).toContain("\\begin{scope}[shift={(30pt,20pt)}, scale=3]");
     expect(result.tikz).toContain(
-      "\\path[draw={rgb,1:red,1;green,0;blue,0}, fill={rgb,1:red,0;green,1;blue,0}, line width=1.5pt] (-2pt,-2pt) -- (2pt,-2pt) -- (2pt,2pt) -- (-2pt,2pt) -- cycle;"
+      "\\path[draw=red, fill=green, line width=1.5pt] (-2pt,-2pt) -- (2pt,-2pt) -- (2pt,2pt) -- (-2pt,2pt) -- cycle;"
     );
     expect(result.tikz).toContain(
       "\\path[draw=black, fill=white, line width=0.5pt] (-2pt,-2pt) -- (2pt,-2pt) -- (2pt,2pt) -- (-2pt,2pt) -- cycle;"
@@ -594,10 +603,10 @@ describe("convertIpeToTikz", () => {
     const converted = convertIpeToTikz(fixture("fidelity-arrow-grid.ipe"));
     expect(converted.diagnostics).toEqual([]);
     expect(converted.tikz).toContain(
-      "\\path[draw={rgb,1:red,0.02;green,0.16;blue,0.24}, line width=1pt, -{Stealth[inset=0pt,length=4pt,width=4pt]}] (20pt,95pt) -- (160pt,95pt);"
+      "\\path[draw=teal!81!blue!40!black, line width=1pt, -{Stealth[inset=0pt,length=4pt,width=4pt]}] (20pt,95pt) -- (160pt,95pt);"
     );
     expect(converted.tikz).toContain(
-      "\\path[draw={rgb,1:red,0.02;green,0.16;blue,0.24}, line width=1pt, {Stealth[inset=0pt,length=12pt,width=12pt]}-{Stealth[inset=0pt,length=4pt,width=4pt]}] (20pt,20pt) -- (160pt,20pt);"
+      "\\path[draw=teal!81!blue!40!black, line width=1pt, {Stealth[inset=0pt,length=12pt,width=12pt]}-{Stealth[inset=0pt,length=4pt,width=4pt]}] (20pt,20pt) -- (160pt,20pt);"
     );
   });
 
@@ -606,10 +615,10 @@ describe("convertIpeToTikz", () => {
 
     expect(converted.diagnostics).toEqual([]);
     expect(converted.tikz).toContain(
-      "\\path[draw={rgb,1:red,0.02;green,0.16;blue,0.24}, line width=1pt, -{Stealth[inset=4.4pt,length=22pt,width=22pt]}] (35pt,12pt) -- (85pt,12pt);"
+      "\\path[draw=teal!81!blue!40!black, line width=1pt, -{Stealth[inset=4.4pt,length=22pt,width=22pt]}] (35pt,12pt) -- (85pt,12pt);"
     );
     expect(converted.tikz).toContain(
-      "\\path[draw={rgb,1:red,0.02;green,0.16;blue,0.24}, line width=1pt, -{Stealth[inset=0pt,length=14pt,width=14pt,fill=white]}] (105pt,12pt) -- (155pt,12pt);"
+      "\\path[draw=teal!81!blue!40!black, line width=1pt, -{Stealth[inset=0pt,length=14pt,width=14pt,fill=white]}] (105pt,12pt) -- (155pt,12pt);"
     );
   });
 });

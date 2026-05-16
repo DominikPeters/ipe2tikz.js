@@ -32,6 +32,7 @@ Options:
 | `-o, --output FILE` | Write TikZ output to `FILE` |
 | `--page N` | Convert page `N`; defaults to page 1 |
 | `--view N` | Convert view `N` on the selected page |
+| `--no-xcolor-rgb-convert` | Emit explicit `{rgb,1:...}` color syntax instead of xcolor mix expressions |
 | `-h, --help` | Show help |
 
 Diagnostics are printed to stderr. Errors exit with status 1; warnings still
@@ -69,7 +70,11 @@ const result = convertIpeToTikz(ipeXmlSource, { page: 0, view: 0 });
 
 `convertIpeToTikz(source, options)` returns `{ tikz, diagnostics }`. `page`
 and `view` are zero-based indices; omitted `page` defaults to the first page,
-and omitted `view` emits all page objects without view-layer filtering.
+and omitted `view` emits all page objects without view-layer filtering. RGB
+colors are converted to compact xcolor mix expressions with
+`xcolor-rgb-convert` by default; pass `{ useXcolorRgbConvert: false }` to emit
+explicit `{rgb,1:...}` color syntax, or pass `xcolorRgbConvertOptions` through
+to `rgbToXcolorExpression`.
 
 `parseIpeXml(source)` returns the typed intermediate representation plus parse
 diagnostics. The package exports the IR and diagnostic TypeScript types from
@@ -97,7 +102,8 @@ emitting TikZ. The supported subset is fixture-driven and includes:
   converted to cubic Beziers where needed,
 - stroke/fill, numeric and symbolic pen widths, dash styles, line cap/join,
   fill rule, opacity/stroke opacity, object matrices, and approximate
-  `arrows.meta` arrowheads with symbolic arrow sizes,
+  `arrows.meta` arrowheads with symbolic arrow sizes and xcolor mix expression
+  output for RGB colors,
 - axial and radial two-color gradient shading and simple line tiling patterns,
 - label and minipage nodes with anchors, text size/style handling, opacity,
   width/height/depth metrics, object transforms, and raw LaTeX text content,

@@ -60,6 +60,7 @@
     "vitest": "^4.1.5"
   },
   "dependencies": {
-    "fast-xml-parser": "^5.7.2"
+    "fast-xml-parser": "^5.7.2",
+    "xcolor-rgb-convert": "^1.0.0"
   }
 }

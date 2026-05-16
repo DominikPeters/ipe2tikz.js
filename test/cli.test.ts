@@ -59,6 +59,15 @@ describe("ipe2tikz CLI", () => {
     expect(io.stdoutText()).toContain("(72pt,0pt)");
   });
 
+  it("can disable xcolor RGB expression conversion", async () => {
+    const io = memoryIo(`<ipe version="70200"><page><path fill="1 0 0">0 0 m 10 0 l 10 10 l h</path></page></ipe>`);
+
+    const exitCode = await runCli(["--no-xcolor-rgb-convert"], io);
+
+    expect(exitCode).toBe(0);
+    expect(io.stdoutText()).toContain("fill={rgb,1:red,1;green,0;blue,0}");
+  });
+
   it("maps --page and --view from 1-based CLI values to the API", async () => {
     const io = memoryIo(multipageIpe);
 

@@ -1,3 +1,5 @@
+import { rgbToXcolorExpression, type RgbToXcolorOptions } from "xcolor-rgb-convert";
+
 import {
   identityMatrix,
   type IpeColor,
@@ -28,6 +30,8 @@ interface EmitContext {
   diagnostics: IpeToTikzDiagnostic[];
   indent: string;
   imagePath?: (bitmapId: string) => string | undefined;
+  useXcolorRgbConvert: boolean;
+  xcolorRgbConvertOptions?: RgbToXcolorOptions;
   symbolParameters?: {
     stroke: IpeColor;
     fill: IpeColor;
@@ -35,12 +39,18 @@ interface EmitContext {
   };
 }
 
+export interface EmitTikzOptions {
+  imagePath?: (bitmapId: string) => string | undefined;
+  useXcolorRgbConvert?: boolean;
+  xcolorRgbConvertOptions?: RgbToXcolorOptions;
+}
+
 export function emitTikz(
   document: IpeDocument,
   pageIndex: number,
   viewIndex: number | undefined,
   diagnostics: IpeToTikzDiagnostic[],
-  options: { imagePath?: (bitmapId: string) => string | undefined } = {}
+  options: EmitTikzOptions = {}
 ): string {
   const page = document.pages[pageIndex];
   if (!page) {
@@ -58,9 +68,17 @@ export function emitTikz(
   }
 
   const lines = ["\\begin{tikzpicture}"];
-  const context: EmitContext = { document, diagnostics, indent: "  " };
+  const context: EmitContext = {
+    document,
+    diagnostics,
+    indent: "  ",
+    useXcolorRgbConvert: options.useXcolorRgbConvert ?? true
+  };
   if (options.imagePath) {
     context.imagePath = options.imagePath;
+  }
+  if (options.xcolorRgbConvertOptions) {
+    context.xcolorRgbConvertOptions = options.xcolorRgbConvertOptions;
   }
   for (const object of page.objects) {
     if (viewState.visibleLayers && (!object.layer || !viewState.visibleLayers.has(object.layer))) {
@@ -711,7 +729,7 @@ function composeMatrix(outer: IpeMatrix, inner: IpeMatrix): IpeMatrix {
 function emitColor(color: IpeColor, context: EmitContext): string {
   const resolved = resolveColor(color, context);
   if (resolved.kind !== "symbolic") {
-    return emitResolvedColor(resolved);
+    return emitResolvedColor(resolved, context);
   }
 
   context.diagnostics.push({
@@ -722,15 +740,29 @@ function emitColor(color: IpeColor, context: EmitContext): string {
   return resolved.name;
 }
 
-function emitResolvedColor(color: Exclude<IpeColor, { kind: "symbolic" }>): string {
+function emitResolvedColor(color: Exclude<IpeColor, { kind: "symbolic" }>, context: EmitContext): string {
   switch (color.kind) {
     case "named":
       return color.name;
     case "gray":
       return `black!${formatNumber((1 - color.value) * 100)}`;
     case "rgb":
+      if (context.useXcolorRgbConvert) {
+        return rgbToXcolorExpression(
+          {
+            r: unitColorChannelToByte(color.red),
+            g: unitColorChannelToByte(color.green),
+            b: unitColorChannelToByte(color.blue)
+          },
+          context.xcolorRgbConvertOptions ?? { mode: "release" }
+        ).expression;
+      }
       return `{rgb,1:red,${formatNumber(color.red)};green,${formatNumber(color.green)};blue,${formatNumber(color.blue)}}`;
   }
+}
+
+function unitColorChannelToByte(value: number): number {
+  return Math.max(0, Math.min(255, Math.round(value * 255)));
 }
 
 function resolveColor(color: IpeColor, context: EmitContext, seen: Set<string> = new Set()): IpeColor {

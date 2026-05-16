@@ -1,5 +1,7 @@
 import { parseIpeXml } from "./parser.js";
 import { emitTikz } from "./tikz.js";
+import type { RgbToXcolorOptions } from "xcolor-rgb-convert";
+import type { EmitTikzOptions } from "./tikz.js";
 
 export type {
   IpeColor,
@@ -46,6 +48,8 @@ export interface ConvertIpeToTikzOptions {
   page?: number;
   view?: number;
   imagePath?: (bitmapId: string) => string | undefined;
+  useXcolorRgbConvert?: boolean;
+  xcolorRgbConvertOptions?: RgbToXcolorOptions;
 }
 
 export function convertIpeToTikz(source: string, options: ConvertIpeToTikzOptions = {}): IpeToTikzResult {
@@ -59,14 +63,13 @@ export function convertIpeToTikz(source: string, options: ConvertIpeToTikzOption
     };
   }
 
+  const emitOptions: EmitTikzOptions = {};
+  if (options.imagePath) emitOptions.imagePath = options.imagePath;
+  if (options.useXcolorRgbConvert !== undefined) emitOptions.useXcolorRgbConvert = options.useXcolorRgbConvert;
+  if (options.xcolorRgbConvertOptions) emitOptions.xcolorRgbConvertOptions = options.xcolorRgbConvertOptions;
+
   return {
-    tikz: emitTikz(
-      parseResult.document,
-      options.page ?? 0,
-      options.view,
-      diagnostics,
-      options.imagePath ? { imagePath: options.imagePath } : {}
-    ),
+    tikz: emitTikz(parseResult.document, options.page ?? 0, options.view, diagnostics, emitOptions),
     diagnostics
   };
 }

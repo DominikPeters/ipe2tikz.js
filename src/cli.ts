@@ -13,6 +13,7 @@ export interface CliArgs {
   outputPath?: string;
   page?: number;
   view?: number;
+  useXcolorRgbConvert: boolean;
   help: boolean;
 }
 
@@ -33,6 +34,7 @@ Options:
   -o, --output FILE       Write TikZ output to FILE
   --page N                Convert page N (1-based, default: 1)
   --view N                Convert view N on the selected page (1-based)
+  --no-xcolor-rgb-convert Emit explicit xcolor rgb model syntax for RGB colors
   -h, --help              Show this help message
 
 If no input file is provided, Ipe XML is read from stdin.
@@ -40,7 +42,7 @@ If no input file is provided, Ipe XML is read from stdin.
 }
 
 export function parseArgs(argv: string[]): CliArgs {
-  const args: CliArgs = { help: false };
+  const args: CliArgs = { help: false, useXcolorRgbConvert: true };
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
@@ -65,6 +67,11 @@ export function parseArgs(argv: string[]): CliArgs {
 
     if (arg === "--view") {
       args.view = parsePositiveIntegerOption(arg, argv[++i]);
+      continue;
+    }
+
+    if (arg === "--no-xcolor-rgb-convert") {
+      args.useXcolorRgbConvert = false;
       continue;
     }
 
@@ -111,6 +118,7 @@ export async function runCli(argv: string[], io: CliIo = nodeIo()): Promise<numb
   const options: ConvertIpeToTikzOptions = {};
   if (args.page !== undefined) options.page = args.page - 1;
   if (args.view !== undefined) options.view = args.view - 1;
+  options.useXcolorRgbConvert = args.useXcolorRgbConvert;
   const result = convertIpeToTikz(source, options);
 
   printDiagnostics(result.diagnostics, io);
