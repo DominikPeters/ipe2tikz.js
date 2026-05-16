@@ -209,6 +209,15 @@ describe("convertIpeToTikz", () => {
         { offset: 1, color: { kind: "rgb", red: 0, green: 0, blue: 1 } }
       ]
     });
+    expect(parsed.document?.stylesheets[0]?.gradients.spot).toMatchObject({
+      name: "spot",
+      type: "radial",
+      coords: [10, 10, 0, 10, 10, 12],
+      stops: [
+        { offset: 0, color: { kind: "rgb", red: 1, green: 1, blue: 1 } },
+        { offset: 1, color: { kind: "rgb", red: 1, green: 0, blue: 0 } }
+      ]
+    });
     expect(parsed.document?.stylesheets[0]?.tilings.hatch).toEqual({
       name: "hatch",
       angle: 45,
@@ -220,6 +229,9 @@ describe("convertIpeToTikz", () => {
 
     expect(converted.tikz).toContain(
       "\\path[fill=white, shade, left color={rgb,1:red,1;green,0;blue,0}, right color={rgb,1:red,0;green,0;blue,1}, shading angle=90]"
+    );
+    expect(converted.tikz).toContain(
+      "\\path[fill=white, shade, inner color={rgb,1:red,1;green,1;blue,1}, outer color={rgb,1:red,1;green,0;blue,0}]"
     );
     expect(converted.tikz).toContain(
       "\\path[fill=white, pattern={Lines[angle=45,distance=6pt,line width=0.5pt]}, pattern color=white]"

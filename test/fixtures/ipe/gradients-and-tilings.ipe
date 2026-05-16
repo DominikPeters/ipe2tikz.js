@@ -4,6 +4,10 @@
       <stop offset="0" color="1 0 0" />
       <stop offset="1" color="0 0 1" />
     </gradient>
+    <gradient name="spot" type="radial" extend="yes" coords="10 10 0 10 10 12">
+      <stop offset="0" color="1 1 1" />
+      <stop offset="1" color="1 0 0" />
+    </gradient>
     <tiling name="hatch" angle="45" step="6" width="0.5" />
   </ipestyle>
   <page>
@@ -11,6 +15,12 @@
       0 0 m
       20 0 l
       20 20 l
+      h
+    </path>
+    <path fill="white" gradient="spot">
+      0 30 m
+      20 30 l
+      20 50 l
       h
     </path>
     <path fill="white" tiling="hatch">

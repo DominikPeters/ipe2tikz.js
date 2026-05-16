@@ -551,13 +551,24 @@ function pathOptions(path: IpePathObject, context: EmitContext): string[] {
 
 function applyGradientOptions(name: string, options: string[], context: EmitContext): boolean {
   const gradient = lookupGradient(context.document.stylesheets, name);
-  if (!gradient || gradient.type !== "axial" || gradient.coords.length < 4 || gradient.stops.length < 2) {
+  if (!gradient || gradient.stops.length < 2) {
     return false;
   }
 
   const first = gradient.stops[0];
   const last = gradient.stops[gradient.stops.length - 1];
   if (!first || !last) {
+    return false;
+  }
+
+  if (gradient.type === "radial") {
+    options.push("shade");
+    options.push(`inner color=${emitColor(first.color, context)}`);
+    options.push(`outer color=${emitColor(last.color, context)}`);
+    return true;
+  }
+
+  if (gradient.coords.length < 4) {
     return false;
   }
 

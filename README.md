@@ -98,7 +98,7 @@ emitting TikZ. The supported subset is fixture-driven and includes:
 - stroke/fill, numeric and symbolic pen widths, dash styles, line cap/join,
   fill rule, opacity/stroke opacity, object matrices, and approximate
   `arrows.meta` arrowheads with symbolic arrow sizes,
-- axial two-color gradient shading and simple line tiling patterns,
+- axial and radial two-color gradient shading and simple line tiling patterns,
 - label and minipage nodes with anchors, text size/style handling, opacity,
   width/height/depth metrics, object transforms, and raw LaTeX text content,
 - image nodes as `\includegraphics` when a programmatic caller supplies
@@ -108,12 +108,12 @@ emitting TikZ. The supported subset is fixture-driven and includes:
   unsupported path operators, and unsupported image output.
 
 Unsupported or approximate areas include clothoid `L` path operators without
-Ipe-provided Bezier approximations, radial gradients, full gradient
-stop/matrix/extend fidelity, exact Ipe tiling fidelity, bitmap
-extraction/decoding for the CLI and demo, exact Ipe arrow geometry, full text
-layout fidelity, and richer multi-object/special-symbol behavior. Unsupported
-operators and effects are preserved or diagnosed where possible and omitted
-from TikZ when they cannot be emitted.
+Ipe-provided Bezier approximations, full gradient stop/matrix/extend and focal
+point fidelity, exact Ipe tiling fidelity, bitmap extraction/decoding for the
+CLI and demo, exact Ipe arrow geometry, full text layout fidelity, and richer
+multi-object/special-symbol behavior. Unsupported operators and effects are
+preserved or diagnosed where possible and omitted from TikZ when they cannot be
+emitted.
 
 Black-box comparison harness:
 
