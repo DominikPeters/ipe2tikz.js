@@ -562,11 +562,24 @@ function parsePathCommands(source: string, diagnostics: IpeToTikzDiagnostic[]): 
   const operands: number[] = [];
   const commands: IpePathCommand[] = [];
   let currentPoint: IpePoint | undefined;
+  let clothoidApproximationStart: number | undefined;
 
   for (const token of tokens) {
     const value = Number(token);
     if (Number.isFinite(value)) {
       operands.push(value);
+      continue;
+    }
+
+    if (token === "*") {
+      if (clothoidApproximationStart !== undefined) {
+        diagnostics.push({
+          severity: "error",
+          code: "invalid-path-operands",
+          message: "Path data contains more than one clothoid approximation separator."
+        });
+      }
+      clothoidApproximationStart = operands.length;
       continue;
     }
 
@@ -674,14 +687,37 @@ function parsePathCommands(source: string, diagnostics: IpeToTikzDiagnostic[]): 
         break;
       }
       case "L":
-      case "u":
-        commands.push({ kind: "unsupported", operator: token, operands: operands.splice(0) });
-        diagnostics.push({
-          severity: "warning",
-          code: "unsupported-path-operator",
-          message: `Path operator '${token}' is parsed but not emitted yet.`
-        });
+      {
+        const curves = readClothoidApproximation(operands, clothoidApproximationStart, currentPoint);
+        if (curves) {
+          commands.push(...curves);
+          currentPoint = curves[curves.length - 1]?.to;
+        } else {
+          commands.push({ kind: "unsupported", operator: token, operands: operands.splice(0) });
+          diagnostics.push({
+            severity: "warning",
+            code: "unsupported-path-operator",
+            message: `Path operator '${token}' is only emitted when Ipe provides a Bezier approximation.`
+          });
+        }
         break;
+      }
+      case "u":
+      {
+        const closedSpline = readClosedUniformSpline(operands);
+        if (closedSpline) {
+          commands.push(...closedSpline);
+          currentPoint = undefined;
+        } else {
+          commands.push({ kind: "unsupported", operator: token, operands: operands.splice(0) });
+          diagnostics.push({
+            severity: "warning",
+            code: "unsupported-path-operator",
+            message: `Path operator '${token}' expects at least three closed spline control points.`
+          });
+        }
+        break;
+      }
       default:
         diagnostics.push({
           severity: "error",
@@ -690,6 +726,7 @@ function parsePathCommands(source: string, diagnostics: IpeToTikzDiagnostic[]): 
         });
         operands.length = 0;
     }
+    clothoidApproximationStart = undefined;
   }
 
   if (operands.length > 0) {
@@ -792,6 +829,67 @@ function readCardinalSpline(
   return curves;
 }
 
+function readClosedUniformSpline(operands: number[]): IpePathCommand[] | undefined {
+  if (operands.length < 6 || operands.length % 2 !== 0) {
+    return undefined;
+  }
+
+  const points = readPoints(operands);
+  operands.length = 0;
+  if (points.length < 3) {
+    return undefined;
+  }
+
+  const commands: IpePathCommand[] = [];
+  const start = closedUniformSplinePoint(points, 0);
+  if (!start) {
+    return undefined;
+  }
+  commands.push({ kind: "move", to: start });
+
+  for (let index = 0; index < points.length; index += 1) {
+    const p1 = cyclicPoint(points, index + 1);
+    const p2 = cyclicPoint(points, index + 2);
+    const to = closedUniformSplinePoint(points, index + 1);
+    if (!p1 || !p2 || !to) {
+      return undefined;
+    }
+    commands.push({
+      kind: "cubic",
+      control1: weightedPoint([p1, p2], [4 / 6, 2 / 6]),
+      control2: weightedPoint([p1, p2], [2 / 6, 4 / 6]),
+      to
+    });
+  }
+  commands.push({ kind: "close" });
+  return commands;
+}
+
+function readClothoidApproximation(
+  operands: number[],
+  approximationStart: number | undefined,
+  currentPoint: IpePoint | undefined
+): Extract<IpePathCommand, { kind: "cubic" }>[] | undefined {
+  if (approximationStart === undefined) {
+    return undefined;
+  }
+
+  let approximationOperands = operands.slice(approximationStart);
+  operands.length = 0;
+  if (approximationOperands.length === 0 || approximationOperands.length % 2 !== 0) {
+    return undefined;
+  }
+
+  if (currentPoint && approximationOperands.length % 6 === 2) {
+    const firstPoint = readPointAt(approximationOperands, 0);
+    if (firstPoint && samePoint(firstPoint, currentPoint)) {
+      approximationOperands = approximationOperands.slice(2);
+    }
+  }
+
+  return readCubicBezierChain(approximationOperands);
+}
+
 function uniformSplineToCubics(points: IpePoint[]): Extract<IpePathCommand, { kind: "cubic" }>[] | undefined {
   if (points.length < 3) {
     return undefined;
@@ -838,6 +936,24 @@ function uniformSplineToCubics(points: IpePoint[]): Extract<IpePathCommand, { ki
       control2: weightedPoint([p1, p2], [2 / 6, 4 / 6]),
       to: weightedPoint([p1, p2, p3], [1 / 6, 4 / 6, 1 / 6])
     });
+  }
+  return curves;
+}
+
+function readCubicBezierChain(operands: number[]): Extract<IpePathCommand, { kind: "cubic" }>[] | undefined {
+  if (operands.length === 0 || operands.length % 6 !== 0) {
+    return undefined;
+  }
+
+  const curves: Extract<IpePathCommand, { kind: "cubic" }>[] = [];
+  for (let index = 0; index < operands.length; index += 6) {
+    const control1 = readPointAt(operands, index);
+    const control2 = readPointAt(operands, index + 2);
+    const to = readPointAt(operands, index + 4);
+    if (!control1 || !control2 || !to) {
+      return undefined;
+    }
+    curves.push({ kind: "cubic", control1, control2, to });
   }
   return curves;
 }
@@ -896,6 +1012,27 @@ function readPoints(operands: number[]): IpePoint[] {
     }
   }
   return points;
+}
+
+function closedUniformSplinePoint(points: IpePoint[], index: number): IpePoint | undefined {
+  const p0 = cyclicPoint(points, index);
+  const p1 = cyclicPoint(points, index + 1);
+  const p2 = cyclicPoint(points, index + 2);
+  if (!p0 || !p1 || !p2) {
+    return undefined;
+  }
+  return weightedPoint([p0, p1, p2], [1 / 6, 4 / 6, 1 / 6]);
+}
+
+function cyclicPoint(points: IpePoint[], index: number): IpePoint | undefined {
+  if (points.length === 0) {
+    return undefined;
+  }
+  return points[((index % points.length) + points.length) % points.length];
+}
+
+function samePoint(left: IpePoint, right: IpePoint): boolean {
+  return left.x === right.x && left.y === right.y;
 }
 
 function interpolate(from: IpePoint, to: IpePoint, fraction: number): IpePoint {

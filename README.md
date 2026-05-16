@@ -92,8 +92,9 @@ emitting TikZ. The supported subset is fixture-driven and includes:
 - stylesheet symbols and `use` objects, including `sym-stroke`, `sym-fill`,
   `sym-pen`, numeric/symbolic symbol sizes, and unresolved-symbol diagnostics,
 - path operators `m`, `l`, `h`, cubic/quadratic Beziers, supported `s`/`C`
-  spline forms converted to cubic Beziers, `e` ellipses, standalone arcs, and
-  mixed arc paths converted to cubic Beziers,
+  spline forms, `u` closed splines, `L` clothoid splines with Ipe-provided
+  Bezier approximations, `e` ellipses, standalone arcs, and mixed arc paths,
+  converted to cubic Beziers where needed,
 - stroke/fill, numeric and symbolic pen widths, dash styles, line cap/join,
   fill rule, opacity/stroke opacity, object matrices, and approximate
   `arrows.meta` arrowheads with symbolic arrow sizes,
@@ -106,12 +107,13 @@ emitting TikZ. The supported subset is fixture-driven and includes:
   unsupported objects, unresolved symbolic styles, unsupported path effects,
   unsupported path operators, and unsupported image output.
 
-Unsupported or approximate areas include `L` and `u` path operators, radial
-gradients, full gradient stop/matrix/extend fidelity, exact Ipe tiling
-fidelity, bitmap extraction/decoding for the CLI and demo, exact Ipe arrow
-geometry, full text layout fidelity, and richer multi-object/special-symbol
-behavior. Unsupported operators and effects are preserved or diagnosed where
-possible and omitted from TikZ when they cannot be emitted.
+Unsupported or approximate areas include clothoid `L` path operators without
+Ipe-provided Bezier approximations, radial gradients, full gradient
+stop/matrix/extend fidelity, exact Ipe tiling fidelity, bitmap
+extraction/decoding for the CLI and demo, exact Ipe arrow geometry, full text
+layout fidelity, and richer multi-object/special-symbol behavior. Unsupported
+operators and effects are preserved or diagnosed where possible and omitted
+from TikZ when they cannot be emitted.
 
 Black-box comparison harness:
 

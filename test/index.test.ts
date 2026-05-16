@@ -392,6 +392,33 @@ describe("convertIpeToTikz", () => {
     ]);
   });
 
+  it("converts clothoid path operators when Ipe provides a Bezier approximation", () => {
+    const result = convertIpeToTikz(
+      "<ipe version=\"70200\"><page><path stroke=\"black\">0 0 m 10 0 20 10 * 10 0 20 10 30 0 L</path></page></ipe>"
+    );
+    const resultWithRepeatedStart = convertIpeToTikz(
+      "<ipe version=\"70200\"><page><path stroke=\"black\">0 0 m 10 0 20 10 * 0 0 10 0 20 10 30 0 L</path></page></ipe>"
+    );
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.tikz).toContain(
+      "\\path[draw=black] (0pt,0pt) .. controls (10pt,0pt) and (20pt,10pt) .. (30pt,0pt);"
+    );
+    expect(resultWithRepeatedStart.diagnostics).toEqual([]);
+    expect(resultWithRepeatedStart.tikz).toBe(result.tikz);
+  });
+
+  it("converts closed uniform spline path operators into cubic Bezier loops", () => {
+    const result = convertIpeToTikz(
+      "<ipe version=\"70200\"><page><path stroke=\"black\">0 0 30 0 30 30 0 30 u</path></page></ipe>"
+    );
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.tikz).toContain(
+      "\\path[draw=black] (25pt,5pt) .. controls (30pt,10pt) and (30pt,20pt) .. (25pt,25pt) .. controls (20pt,30pt) and (10pt,30pt) .. (5pt,25pt) .. controls (0pt,20pt) and (0pt,10pt) .. (5pt,5pt) .. controls (10pt,0pt) and (20pt,0pt) .. (25pt,5pt) -- cycle;"
+    );
+  });
+
   it("converts cubic and quadratic Bezier path segments", () => {
     const result = convertIpeToTikz(fixture("beziers.ipe"));
 
