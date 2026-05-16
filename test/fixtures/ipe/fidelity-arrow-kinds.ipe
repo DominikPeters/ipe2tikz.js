@@ -1,0 +1,99 @@
+<ipe version="70200" creator="ipe2tikz-test">
+  <ipestyle name="fidelity-arrow-kinds">
+    <color name="grid" value="0.86" />
+    <color name="major" value="0.68" />
+    <color name="ink" value="0.02 0.16 0.24" />
+    <color name="label" value="0.10 0.10 0.10" />
+    <pen name="gridpen" value="0.18" />
+    <pen name="majorpen" value="0.35" />
+    <pen name="linepen" value="1.2" />
+    <textsize name="caption" value="8" />
+    <arrowsize name="normal" value="14" />
+    <arrowsize name="large" value="20" />
+    <symbol name="arrow/normal(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="sym-stroke">
+        0 0 m -1 0.35 l -1 -0.35 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/fnormal(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="white">
+        0 0 m -1 0.35 l -1 -0.35 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/pointed(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="sym-stroke">
+        0 0 m -1 0.35 l -0.78 0 l -1 -0.35 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/fpointed(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="white">
+        0 0 m -1 0.35 l -0.78 0 l -1 -0.35 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/arc(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="sym-stroke">
+        0 0 m -0.95 0.30 l -0.95 -0.30 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/farc(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="white">
+        0 0 m -0.95 0.30 l -0.95 -0.30 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/ptarc(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="sym-stroke">
+        0 0 m -0.95 0.30 l -0.72 0 l -0.95 -0.30 l h
+      </path>
+    </symbol>
+    <symbol name="arrow/fptarc(spx)">
+      <path pen="sym-pen" stroke="sym-stroke" fill="white">
+        0 0 m -0.95 0.30 l -0.72 0 l -0.95 -0.30 l h
+      </path>
+    </symbol>
+  </ipestyle>
+  <page title="Arrow kind visual comparison">
+    <path stroke="grid" pen="gridpen">0 0 m 190 0 l</path>
+    <path stroke="major" pen="majorpen">0 20 m 190 20 l</path>
+    <path stroke="major" pen="majorpen">0 40 m 190 40 l</path>
+    <path stroke="major" pen="majorpen">0 60 m 190 60 l</path>
+    <path stroke="major" pen="majorpen">0 80 m 190 80 l</path>
+    <path stroke="major" pen="majorpen">0 100 m 190 100 l</path>
+    <path stroke="major" pen="majorpen">0 120 m 190 120 l</path>
+    <path stroke="major" pen="majorpen">0 140 m 190 140 l</path>
+    <path stroke="major" pen="majorpen">0 160 m 190 160 l</path>
+    <path stroke="major" pen="majorpen">0 185 m 190 185 l</path>
+    <path stroke="major" pen="majorpen">0 215 m 190 215 l</path>
+    <path stroke="grid" pen="gridpen">60 0 m 60 222 l</path>
+    <path stroke="grid" pen="gridpen">170 0 m 170 222 l</path>
+
+    <text stroke="label" size="caption" pos="8 204" valign="center">two-ended</text>
+    <path stroke="ink" pen="linepen" rarrow="pointed/large" arrow="fnormal/normal">62 205 m 168 205 l</path>
+
+    <text stroke="label" size="caption" pos="8 176" valign="center">curved</text>
+    <path stroke="ink" pen="linepen" arrow="ptarc/large">72 174 m 106 198 134 152 168 174 c</path>
+
+    <text stroke="label" size="caption" pos="8 144" valign="center">normal</text>
+    <path stroke="ink" pen="linepen" arrow="normal/normal">62 145 m 168 145 l</path>
+
+    <text stroke="label" size="caption" pos="8 124" valign="center">fnormal</text>
+    <path stroke="ink" pen="linepen" arrow="fnormal/normal">62 125 m 168 125 l</path>
+
+    <text stroke="label" size="caption" pos="8 104" valign="center">pointed</text>
+    <path stroke="ink" pen="linepen" arrow="pointed/normal">62 105 m 168 105 l</path>
+
+    <text stroke="label" size="caption" pos="8 84" valign="center">fpointed</text>
+    <path stroke="ink" pen="linepen" arrow="fpointed/normal">62 85 m 168 85 l</path>
+
+    <text stroke="label" size="caption" pos="8 64" valign="center">arc</text>
+    <path stroke="ink" pen="linepen" arrow="arc/normal">62 65 m 168 65 l</path>
+
+    <text stroke="label" size="caption" pos="8 44" valign="center">farc</text>
+    <path stroke="ink" pen="linepen" arrow="farc/normal">62 45 m 168 45 l</path>
+
+    <text stroke="label" size="caption" pos="8 24" valign="center">ptarc</text>
+    <path stroke="ink" pen="linepen" arrow="ptarc/normal">62 25 m 168 25 l</path>
+
+    <text stroke="label" size="caption" pos="8 4" valign="center">fptarc</text>
+    <path stroke="ink" pen="linepen" arrow="fptarc/normal">62 5 m 168 5 l</path>
+  </page>
+</ipe>

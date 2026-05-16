@@ -25,6 +25,7 @@ const advancedFixtures = [
 
 const fidelityFixtures = [
   "fidelity-arrow-grid.ipe",
+  "fidelity-arrow-kinds.ipe",
   "fidelity-arrowheads.ipe",
   "fidelity-text-anchors.ipe",
   "fidelity-text-grid.ipe"

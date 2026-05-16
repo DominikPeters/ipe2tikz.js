@@ -615,6 +615,7 @@ function arrowTipOption(source: string, context: EmitContext): string {
   const length = resolveArrowSize(spec.size, context);
   const width = length;
   const inset = isPointedArrow(spec.kind) ? length * 0.2 : 0;
+  const tip = arrowTipKind(spec.kind);
   const options = [
     `inset=${formatNumber(inset)}pt`,
     `length=${formatNumber(length)}pt`,
@@ -623,7 +624,23 @@ function arrowTipOption(source: string, context: EmitContext): string {
   if (isWhiteFilledArrow(spec.kind)) {
     options.push("fill=white");
   }
-  return `{Stealth[${options.join(",")}]}`;
+  return `{${tip}[${options.join(",")}]}`;
+}
+
+function arrowTipKind(kind: string): "Stealth" {
+  switch (kind) {
+    case "pointed":
+    case "fpointed":
+    case "ptarc":
+    case "fptarc":
+      return "Stealth";
+    case "normal":
+    case "fnormal":
+    case "arc":
+    case "farc":
+    default:
+      return "Stealth";
+  }
 }
 
 function isPointedArrow(kind: string): boolean {
